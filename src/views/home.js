@@ -16,7 +16,6 @@ function home(navigateTo) {
   const description = document.createElement('p');
   description.textContent = 'Platform for the neighbors of a community where they can sell, give away, buy whatever they deem convenient';
   description.className = 'description-app';
-
   const email = document.createElement('p');
   email.textContent = 'Email';
   email.className = 'name-email';
@@ -29,6 +28,7 @@ function home(navigateTo) {
 
   const inputPassword = document.createElement('input');
   inputPassword.classList.add('inputPassword');
+  inputPassword.className = 'inputDesign';
 
   const forgotPassword = document.createElement('a');
   forgotPassword.textContent = 'Forgot Password';
@@ -48,8 +48,12 @@ function home(navigateTo) {
   btnGoogle.classList.add('btnGoogle');
   btnGoogle.textContent = 'Sign In With Google';
 
+  signUp.addEventListener('click', () => {
+    navigateTo('/signup');
+  });
+
   btnSignIn.addEventListener('click', () => {
-    navigateTo('/login');
+    navigateTo('/board');
   });
 
   container.append(title, imageBuilding, description, email, inputEmail, password, inputPassword, forgotPassword, btnSignIn, btnGoogle, signUp);
