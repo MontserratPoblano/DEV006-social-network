@@ -1,5 +1,4 @@
 function signup(navigateTo) {
-
   const sectionSignUp = document.createElement('section'); 
   const buttonReturn = document.createElement('button'); 
   const formSignUp = document.createElement('form'); 
@@ -63,7 +62,6 @@ export default signup;
 
  
   /*const section = document.createElement('section');
-
   const title = document.createElement('h2');
   const buttonReturn = document.createElement('button');
   // const form = document.createElement('form');
@@ -130,4 +128,4 @@ export default login;
 //   return section;
 // }
 
-// export default signUp;*/
+// export default signUp; */
