@@ -165,10 +165,12 @@ body{
   padding: 5%;
   text-align: end;
   
+  
 }
 
 .menu-class {
   text-align: center;
+  padding-top: 20px;
 }
 
 .menu-top-board, .menu-top-profile{  
@@ -180,12 +182,14 @@ body{
     font-size: 20px;
     font-weight: 700;
     text-align: center;
-
+   
   } 
   .menu-top-profile{  
-    font-weight: 100;
+    font-weight: 100px;
     color: #36413E;
   } 
+
+
  
  .imageProfile {
     width: 55px;
@@ -231,9 +235,9 @@ body{
   gap: 5%;
  }
 
-.container-formSignUp{
-  height: 190vw;
-  margin: 2% auto;
+
+.container-formSignUp, .formSetting-Profile{
+  border:4px solid #00808D;
   width: 90%;
   border-radius: 30px;
   display: flex;
@@ -243,9 +247,12 @@ body{
   border:4px solid #00808D;
   border:4px solid #00808D;
   display:flex;
+  justify-content:start;
+  flex-direction: column;
+  
 }
 
-.parrafo-signUp{
+.paragraph-signUp{
   margin-top: 10%;
   margin-left: 10%;
   width: 50%;
@@ -253,7 +260,7 @@ body{
   font-weight: bolder;
 }
 
-.input-userSignUp{
+.input-userSignUp, .input-fullname, .input-setting{
   width: 80%;
   height: 36px;
   margin: 0 auto;
@@ -261,6 +268,7 @@ body{
   border-radius: 10px;
   background-color: #d9d9d9;
   border: 1px solid #d9d9d9;
+  
 }
 
 /* .btn-windowSignUp{
@@ -276,4 +284,62 @@ body{
   font-family:"Roboto Condensed";
   font-size: medium;
 } */
+
+/*setting profile*/
+.img-setting{
+  width:40%;
+  height: auto;
+  padding-top: 10%;
+  margin: 0 auto;
+}
+
+.container-fullname,.container-setting{
+  width: 100%;
+  display: flex;
+  padding: 10%;
+  
+}
+
+.label-fullname,.label-setting{
+  
+  width: 30%;
+  line-height: 30px;
+  color:#36413e;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.input-notification{
+
+  width: 11%;
+  height: 30px;
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 5px;
+  appearance: none;
+  background-color: #FF5A5F;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+ 
+}
+
+.input-notification:checked {
+  background-color: rgb(236 72 153);
+}
+.btn-save{
+  width: 30%;
+  height: 5%;
+  margin: 6% auto;  
+  align-items: center;
+  background-color: #FF5A5F;
+  border-radius: 10px;
+  color: white;
+  font-weight: bolder;
+  font-family:"Roboto Condensed";
+  font-size: medium;
+  border:none;
+
+}
+
+
 

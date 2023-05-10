@@ -18,7 +18,7 @@ function board(navigateTo) {
   boardMenu.className = 'menu-top-board';
 
   const profileMenu = document.createElement('a');
-  profileMenu.href = 'Profile';
+  profileMenu.href = '/profile';
   profileMenu.textContent = 'Profile';
   profileMenu.className = 'menu-top-profile';
 
@@ -62,6 +62,10 @@ function board(navigateTo) {
   boardMenu.addEventListener('click', () => {
     navigateTo('/board');
   });
+
+  profileMenu.addEventListener('click',()=>{
+    navigateTo('/profile')
+  })
 
   menu.append(boardMenu, profileMenu);
   container.append(menu, containerImgPost, sortLabel, sort);
