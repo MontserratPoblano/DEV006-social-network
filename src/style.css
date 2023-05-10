@@ -157,10 +157,12 @@ body{
   border: 6px solid #00808D;
   text-align: end;
   
+  
 }
 
 .menu-class {
   text-align: center;
+  border: 1px solid black;
 }
 
 .menu-top-board, .menu-top-profile{  
@@ -243,7 +245,7 @@ body{
 
 }
 
-.parrafo-signUp{
+.paragraph-signUp{
  
   margin-top: 10%;
   margin-left: 10%;

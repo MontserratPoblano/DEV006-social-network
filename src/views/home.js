@@ -49,7 +49,7 @@ function home(navigateTo) {
 
   const signUp = document.createElement('a');
   signUp.textContent = 'Sign Up';
-  signUp.href = 'Sign Up';
+  signUp.href = '/signup';
   signUp.classList.add('btnSignUp');
 
   const btnGoogle = document.createElement('button');

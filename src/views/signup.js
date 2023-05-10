@@ -28,11 +28,11 @@ function signup(navigateTo) {
   buttonReturn.classList.add("buttonReturn");
 
   formSignUp.classList.add("container-formSignUp");
-  currentCode.classList.add("parrafo-signUp")
-  userSignUp.classList.add("parrafo-signUp");
-  emailSignUp.classList.add("parrafo-signUp");
-  passwordSignUp.classList.add("parrafo-signUp");
-  confirmPassword.classList.add("parrafo-signUp");
+  currentCode.classList.add("paragraph-signUp")
+  userSignUp.classList.add("paragraph-signUp");
+  emailSignUp.classList.add("paragraph-signUp");
+  passwordSignUp.classList.add("paragraph-signUp");
+  confirmPassword.classList.add("paragraph-signUp");
   inputUserSignUp.classList.add("input-userSignUp");
   inputEmailSignUp.classList.add("input-userSignUp"); 
   inputPasswordSignUp.classList.add("input-userSignUp");

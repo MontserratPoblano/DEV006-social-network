@@ -9,6 +9,8 @@ import error from './views/error.js';
 import forgotPassword from './views/forgotPassword.js';
 import newPassword from './views/newPassword.js';
 import board from './views/board.js';
+import settingprofile from './views/settingprofile.js';
+
 
 const routes = [
   { path: '/', component: home },
@@ -18,6 +20,7 @@ const routes = [
   { path: '/newPassword', component: newPassword },
   { path: '/error', component: error },
   { path: '/board', component: board },
+  { path: '/settingprofile', component: settingprofile },
 ];
 
 const defaultRoute = '/';

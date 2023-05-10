@@ -63,6 +63,10 @@ function board(navigateTo) {
     navigateTo('/board');
   });
 
+  profileMenu.addEventListener('click',()=>{
+    navigateTo('/settingprofile')
+  })
+
   menu.append(boardMenu, profileMenu);
   container.append(menu, containerImgPost, sortLabel, sort);
   section.append(buttonReturn, container);
