@@ -8,6 +8,10 @@ function profile(navigateTo) {
   btnBoard.className = 'btn-board';
   const btnProfile = document.createElement('button');
   btnProfile.className = 'btn-profile';
+
+  const btnEditProfile=document.createElement("button");
+  btnEditProfile.textContent="Edit Profile";
+
   const userInfo = document.createElement('div');
   userInfo.className = 'user-info';
   const userImg = document.createElement('img');
@@ -29,6 +33,11 @@ function profile(navigateTo) {
     navigateTo('/board');
   });
 
+  
+  btnEditProfile.addEventListener('click', () => {
+    navigateTo('/settingprofile');
+  });
+
   btnBoard.textContent = 'Board';
   btnProfile.textContent = 'Profile';
   userImg.src = './images/profile-img.png';
@@ -39,7 +48,9 @@ function profile(navigateTo) {
   post.placeholder = 'Post here...';
   btnSend.textContent = 'Send';
 
-  menu.append(btnBoard, btnProfile);
+
+
+  menu.append(btnBoard, btnProfile, btnEditProfile);
   userInfo.append(userImg, userName);
   form.append(post, btnSend);
   container.append(menu, userInfo, form);
