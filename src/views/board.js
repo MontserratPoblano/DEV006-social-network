@@ -13,12 +13,12 @@ function board(navigateTo) {
   menu.className = 'menu-class';
 
   const boardMenu = document.createElement('a');
-  boardMenu.href = 'Board';
+  boardMenu.href = '/board';
   boardMenu.textContent = 'Board';
   boardMenu.className = 'menu-top-board';
 
   const profileMenu = document.createElement('a');
-  profileMenu.href = 'Profile';
+  profileMenu.href = '/profile';
   profileMenu.textContent = 'Profile';
   profileMenu.className = 'menu-top-profile';
 
