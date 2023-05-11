@@ -1,31 +1,29 @@
-
-
 * {
 
-padding: 0;
-box-sizing: border-box;
+  padding: 0;
+  box-sizing: border-box;
 
 }
 
 .container-app {
   height: 190vw;
-  margin: 2% auto ;
+  margin: 2% auto;
   width: 90%;
   border-radius: 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   background-color: #B4D7EA;
-  border:4px solid #00808D;
+  border: 4px solid #00808D;
 }
 
-body{
-  font-family:"Roboto Condensed";
-  background-color: #0B3954 ;
+body {
+  font-family: "Roboto Condensed";
+  background-color: #0B3954;
 }
 
 .title {
-  
+
   color: #00808D;
   font-size: 30px;
   text-align: center;
@@ -35,26 +33,27 @@ body{
 }
 
 .titleForgot {
-  font-family:"Roboto Condensed";
+  font-family: "Roboto Condensed";
   margin: 2% auto;
   color: #0B3954;
 }
 
 .description-app {
-  font-family:"Roboto Condensed";
+  font-family: "Roboto Condensed";
   text-align: center;
   line-height: 1.5em;
   font-size: 16px;
   padding: 3%;
 }
 
-.app-img{
+.app-img {
   width: 50%;
   height: auto;
   align-self: center;
 }
 
-.name-email, .name-password {
+.name-email,
+.name-password {
   margin-left: 12%;
 }
 
@@ -73,7 +72,8 @@ body{
   margin: 5%;
 }
 
-.input-email-forgot, .input-password-forgot {
+.input-email-forgot,
+.input-password-forgot {
   width: 80%;
   border-radius: 5px;
   height: 0 auto;
@@ -99,17 +99,20 @@ body{
   margin: 2% auto;
   background-color: #D9D9D9;
 }
-
-.btnSignIn, .buttonLogin, .btnSend, .btn-windowSignUp {
+.btn-edit,
+.btnSignIn,
+.buttonLogin,
+.btnSend,
+.btn-windowSignUp {
   width: 25%;
   height: 4%;
   display: block;
-  margin: 2% auto;  
+  margin: 2% auto;
   align-items: center;
   background-color: #FF5A5F;
   border-radius: 10%;
   color: white;
-  font-family:"Roboto Condensed";
+  font-family: "Roboto Condensed";
   font-size: medium;
   text-shadow: 2px 2px 5px rgb(0, 0, 0);
 }
@@ -122,11 +125,11 @@ body{
   color: #00bed3;
   font-size: 20px;
   margin-left: 2%;
-    font-weight: bolder;
-    border:none;
-    background-color:#0B3954;
-    padding:3%;
-    margin-bottom: 0;
+  font-weight: bolder;
+  border: none;
+  background-color: #0B3954;
+  padding: 3%;
+  margin-bottom: 0;
 }
 
 .homePage {
@@ -142,16 +145,111 @@ body{
   background-color: #4285F4;
   border-radius: 10%;
   color: white;
-  font-family:"Roboto Medium";
+  font-family: "Roboto Medium";
   font-size: 14px;
-  margin: 2% auto; 
+  margin: 2% auto;
 }
 
-.btnForgotP, .btnSignUp {
-  margin-right: 5%;  
+.btnForgotP,
+.btnSignUp {
+  margin-right: 5%;
   text-align: right;
 }
+/* Profile */
 
+.container-profile {
+  height: 190vw;
+  margin: 2% auto;
+  width: 90%;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  background-color: #B4D7EA;
+  border: 4px solid #00808D;
+  justify-content: start;
+  padding: 5%;
+}
+
+.container-names .user-name
+.container-names .user-last-name {
+  font-size: 30px;
+}
+
+.your-posts {
+  font-family: "Roboto Condensed";
+  font-size: 30px;
+  font-weight: bolder;
+}
+.container-names {
+  position: relative;
+}
+
+.container-names .btn-edit {
+  position: absolute;
+  width: 80%;
+  height: auto;
+  text-align: center;
+  padding: 8px 16px;
+  font-size: 16px;
+  right: 0;
+}
+
+.post {
+  width: 100%;
+  background: #D9D9D9;
+  border-radius: 8px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  height: 100px;
+  text-align: center;
+  letter-spacing: -0.019em;
+  line-height: 150%;
+  justify-content: center;
+  text-align: center;
+  display: flex;
+}
+
+.form-profile {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-profile {
+  font-family: 'Roboto Condensed';
+  color: #00808D;
+  font-size: 20px;
+  font-weight: 700;
+  border: none;
+  background-color: #B4D7EA;
+}
+
+.btn-board {
+  margin-right: 8%;
+  font-family: 'Roboto Condensed';
+  color: #36413E;
+  font-size: 20px;
+  font-weight: bolder;
+  border: none;
+  background-color: #B4D7EA;
+}
+
+.container-user-post {
+  display: flex;
+  align-items: center;
+}
+
+.user-info {
+  align-items: center;
+  display: flex;
+  margin-bottom: 20%;
+}
+
+.user-img {
+  margin-right: 10%;
+  width: 30%;
+  height: auto;
+}
 
 /* Board view */
 
@@ -161,11 +259,10 @@ body{
   width: 90%;
   border-radius: 30px;
   background-color: #B4D7EA;
-  border:4px solid #00808D;
+  border: 4px solid #00808D;
   padding: 5%;
   text-align: end;
-  
-  
+
 }
 
 .menu-class {
@@ -173,35 +270,41 @@ body{
   padding-top: 20px;
 }
 
-.menu-top-board, .menu-top-profile{  
-    margin-right: 8%;
-    text-align: center;
-    font-family: 'Roboto Condensed';
-    color: #00808D;
-    text-decoration: none;
-    font-size: 20px;
-    font-weight: 700;
-    text-align: center;
-   
-  } 
-  .menu-top-profile{  
-    font-weight: 100px;
-    color: #36413E;
-  } 
+
+.menu-profile {
+  text-align: center;
+  margin-bottom: 10%;
+}
+
+.menu-top-board,
+.menu-top-profile {
+  margin-right: 8%;
+  text-align: center;
+  font-family: 'Roboto Condensed';
+  color: #00808D;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
 
 
- 
- .imageProfile {
-    width: 55px;
-    height: 50px;
-    margin: 0;
+}
 
+.menu-top-profile {
+  font-weight: 100;
+  color: #36413E;
+}
 
- }
+.post-img,
+.imageProfile {
+  width: 55px;
+  height: 50px;
+  margin: 0;
+}
 
- .post-class {
+.post-class {
   background: #D9D9D9;
-  border-radius: 8px; 
+  border-radius: 8px;
   font-style: normal;
   font-weight: 500;
   font-size: 15px;
@@ -210,22 +313,21 @@ body{
   text-align: center;
   letter-spacing: -0.019em;
   line-height: 150%;
+}
 
-
- }
-
- .sort-class .sortLabel-class {
+.sort-class .sortLabel-class {
   display: flex;
   flex-direction: column;
   align-self: flex-end;
   width: 80px;
   padding: 0px;
   height: 30px;
- }
 
- .options-class {
+}
+
+.options-class {
   font-size: 10px;
- }
+}
 
  .container-img-post {
   margin: 10%;
@@ -233,8 +335,7 @@ body{
   flex-direction: row;
   justify-content: space-around;
   gap: 5%;
- }
-
+}
 
 .container-formSignUp, .formSetting-Profile{
   border:4px solid #00808D;
@@ -244,21 +345,18 @@ body{
   flex-direction: column;
   justify-content: start;
   background-color: #B4D7EA;
-  border:4px solid #00808D;
-  border:4px solid #00808D;
-  display:flex;
-  justify-content:start;
-  flex-direction: column;
-  
+  display: flex;
 }
+
 
 .paragraph-signUp{
   margin-top: 10%;
   margin-left: 10%;
   width: 50%;
-  color:#36413e;
+  color: #36413e;
   font-weight: bolder;
 }
+
 
 .input-userSignUp, .input-fullname, .input-setting{
   width: 80%;

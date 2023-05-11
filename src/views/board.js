@@ -13,7 +13,7 @@ function board(navigateTo) {
   menu.className = 'menu-class';
 
   const boardMenu = document.createElement('a');
-  boardMenu.href = 'Board';
+  boardMenu.href = '/board';
   boardMenu.textContent = 'Board';
   boardMenu.className = 'menu-top-board';
 
