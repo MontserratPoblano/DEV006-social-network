@@ -1,6 +1,5 @@
-/* eslint-disable import/no-named-as-default */
 // Este es el punto de entrada de tu aplicacion
-// import './app/signUp.js';import home from './views/home.js';
+// import './app/signUp.js'
 
 import profile from './views/profile.js';
 import home from './views/home.js';
@@ -10,7 +9,6 @@ import forgotPassword from './views/forgotPassword.js';
 import newPassword from './views/newPassword.js';
 import board from './views/board.js';
 import settingprofile from './views/settingprofile.js';
-
 
 const routes = [
   { path: '/', component: home },
