@@ -1,23 +1,24 @@
 function profile(navigateTo) {
   const section = document.createElement('section');
   const container = document.createElement('div');
+
   container.className = 'container-profile';
   const containerNames = document.createElement('div');
   containerNames.className = 'container-names';
+
   const containerPost = document.createElement('div');
   containerPost.className = 'container-post';
   const menu = document.createElement('div');
   menu.className = 'menu-profile';
   const btnBoard = document.createElement('button');
   btnBoard.className = 'btn-board';
-  const btnEdit = document.createElement('button');
-  btnEdit.className = 'btn-edit';
+
+  const btnEditProfile = document.createElement('button');
+  btnEditProfile.className = 'btn-edit';
+  btnEditProfile.textContent = 'Edit Profile';
+
   const btnProfile = document.createElement('button');
   btnProfile.className = 'btn-profile';
-
-  const btnEditProfile=document.createElement("button");
-  btnEditProfile.textContent="Edit Profile";
-
   const userInfo = document.createElement('div');
   userInfo.className = 'user-info';
   const userImg = document.createElement('img');
@@ -45,12 +46,10 @@ function profile(navigateTo) {
   });
 
   yourPosts.textContent = 'Your Posts:';
-  btnEdit.textContent = 'Edit profile';
-  
+
   btnEditProfile.addEventListener('click', () => {
     navigateTo('/settingprofile');
   });
-
 
   btnBoard.textContent = 'Board';
   btnBoard.addEventListener('click', () => {
@@ -74,9 +73,8 @@ function profile(navigateTo) {
 
   post.placeholder = 'Lorem ipsum dolor sit amet. Est dolores minus qui consequuntur omnis in nihil galisum';
 
-
   menu.append(btnBoard, btnProfile);
-  containerNames.append(userName, userLastName, btnEdit);
+  containerNames.append(userName, userLastName, btnEditProfile);
   userInfo.append(userImg, containerNames);
   containerUser.append(postImg, userNamePost);
   containerPost.append(containerUser, post);
