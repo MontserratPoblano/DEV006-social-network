@@ -15,8 +15,8 @@ function profile(navigateTo) {
   const btnProfile = document.createElement('button');
   btnProfile.className = 'btn-profile';
 
-  const btnEditProfile=document.createElement("button");
-  btnEditProfile.textContent="Edit Profile";
+  const btnEditProfile = document.createElement('button');
+  btnEditProfile.textContent = 'Edit Profile';
 
   const userInfo = document.createElement('div');
   userInfo.className = 'user-info';
@@ -46,11 +46,10 @@ function profile(navigateTo) {
 
   yourPosts.textContent = 'Your Posts:';
   btnEdit.textContent = 'Edit profile';
-  
+
   btnEditProfile.addEventListener('click', () => {
     navigateTo('/settingprofile');
   });
-
 
   btnBoard.textContent = 'Board';
   btnBoard.addEventListener('click', () => {
@@ -73,7 +72,6 @@ function profile(navigateTo) {
   userNamePost.textContent = 'User name...';
 
   post.placeholder = 'Lorem ipsum dolor sit amet. Est dolores minus qui consequuntur omnis in nihil galisum';
-
 
   menu.append(btnBoard, btnProfile);
   containerNames.append(userName, userLastName, btnEdit);

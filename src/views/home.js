@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 function home(navigateTo) {
   const section = document.createElement('section');
 
@@ -68,7 +67,19 @@ function home(navigateTo) {
     navigateTo('/board');
   });
 
-  container.append(title, imageBuilding, description, email, inputEmail, password, inputPassword, forgotPassword, btnSignIn, btnGoogle, signUp);
+  container.append(
+    title,
+    imageBuilding,
+    description,
+    email,
+    inputEmail,
+    password,
+    inputPassword,
+    forgotPassword,
+    btnSignIn,
+    btnGoogle,
+    signUp,
+  );
   section.append(textHome, container);
   return section;
 }

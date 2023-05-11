@@ -63,9 +63,9 @@ function board(navigateTo) {
     navigateTo('/board');
   });
 
-  profileMenu.addEventListener('click',()=>{
-    navigateTo('/profile')
-  })
+  profileMenu.addEventListener('click', () => {
+    navigateTo('/profile');
+  });
 
   menu.append(boardMenu, profileMenu);
   container.append(menu, containerImgPost, sortLabel, sort);
