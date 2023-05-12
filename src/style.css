@@ -369,20 +369,6 @@ body {
   
 }
 
-/* .btn-windowSignUp{
-  width: 80%;
-  height: 6%;
-  border:none;
-  margin-top: 20%;
-  margin-left: 10%;
-  align-items: center;
-  background-color: #FF5A5F;
-  color: white;
-  font-weight: bolder;
-  font-family:"Roboto Condensed";
-  font-size: medium;
-} */
-
 /*setting profile*/
 .img-setting{
   width:40%;
@@ -439,5 +425,28 @@ body {
 
 }
 
+
+/*Modal*/
+
+.container-modal{
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.8);
+  position:absolute;
+  top:0;
+  left:0;
+  display: flex;
+  animation:modal 2s 3s forwards;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.content-modal{
+  width:40%;
+  height: 4%;
+  margin:auto;
+  background-color: blanco;
+  border-radius: 10px;;
+}
 
 
