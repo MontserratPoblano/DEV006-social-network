@@ -1,5 +1,7 @@
 // Import the functions you need from the SDKs you need
+// eslint-disable-next-line import/no-unresolved
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js';
+// eslint-disable-next-line import/no-unresolved
 import { getAuth } from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries

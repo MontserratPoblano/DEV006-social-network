@@ -5,7 +5,7 @@
 
 }
 
-.container-app {
+.container-app, .container-formSignUp, .formSetting-Profile {
   height: 190vw;
   margin: 2% auto;
   width: 90%;
@@ -15,6 +15,10 @@
   justify-content: center;
   background-color: #B4D7EA;
   border: 4px solid #00808D;
+}
+
+.container-formSignUp {
+  justify-content: flex-start;
 }
 
 body {
@@ -337,7 +341,7 @@ body {
   gap: 5%;
 }
 
-.container-formSignUp, .formSetting-Profile{
+/* .container-formSignUp, .formSetting-Profile{
   border:4px solid #00808D;
   width: 90%;
   border-radius: 30px;
@@ -346,7 +350,7 @@ body {
   justify-content: start;
   background-color: #B4D7EA;
   display: flex;
-}
+} */
 
 
 .paragraph-signUp{
