@@ -1,3 +1,5 @@
+import { registerWithGoogle } from '../lib/index.js';
+
 function home(navigateTo) {
   const section = document.createElement('section');
 
@@ -58,6 +60,13 @@ function home(navigateTo) {
   const btnGoogle = document.createElement('button');
   btnGoogle.classList.add('btnGoogle');
   btnGoogle.textContent = 'Sign In With Google';
+
+  btnGoogle.addEventListener('click', () => {
+    registerWithGoogle();
+    setTimeout(() => {
+      navigateTo('/board');
+    }, 3000);
+  });
 
   signUp.addEventListener('click', () => {
     navigateTo('/signup');

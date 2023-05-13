@@ -1,4 +1,4 @@
-import { registerUser, validationEmail } from '../lib';
+import { registerUser } from '../lib';
 
 function signup(navigateTo) {
   const sectionSignUp = document.createElement('section');
@@ -17,11 +17,10 @@ function signup(navigateTo) {
   userSignUp.textContent = 'User name';
   userSignUp.classList.add('paragraph-signUp');
 
-
   const inputUserSignUp = document.createElement('input');
   inputUserSignUp.placeholder = 'Enter user';
-  inputUserSignUp.type="text";
-  inputUserSignUp.required=true;
+  // inputUserSignUp.type = 'text';
+  inputUserSignUp.required = true;
   inputUserSignUp.classList.add('input-userSignUp');
 
   const emailSignUp = document.createElement('p');
@@ -30,9 +29,9 @@ function signup(navigateTo) {
 
   const inputEmailSignUp = document.createElement('input');
   inputEmailSignUp.placeholder = 'Enter email';
-  inputEmailSignUp.required=true;
+  inputEmailSignUp.required = true;
+  inputEmailSignUp.type = 'email';
   inputEmailSignUp.classList.add('input-userSignUp');
-  
 
   const passwordSignUp = document.createElement('p');
   passwordSignUp.textContent = 'Password';
@@ -40,60 +39,55 @@ function signup(navigateTo) {
 
   const inputPasswordSignUp = document.createElement('input');
   inputPasswordSignUp.placeholder = 'Enter password';
-  inputPasswordSignUp.required=true;
-  inputPasswordSignUp.type="password";
+  inputPasswordSignUp.required = true;
+  inputPasswordSignUp.type = 'password';
   inputPasswordSignUp.classList.add('input-userSignUp');
-  
 
   const confirmPassword = document.createElement('p');
   confirmPassword.textContent = 'Confirm password';
   confirmPassword.classList.add('paragraph-signUp');
 
-
   const inputConfirmPasswordSignUp = document.createElement('input');
   inputConfirmPasswordSignUp.placeholder = 'confirm password';
-  inputConfirmPasswordSignUp.required=true;
-  inputConfirmPasswordSignUp.autocomplete=true;
-  inputConfirmPasswordSignUp.type="password";
+  inputConfirmPasswordSignUp.required = true;
+  // inputConfirmPasswordSignUp.autocomplete = true;
+  inputConfirmPasswordSignUp.type = 'password';
   inputConfirmPasswordSignUp.classList.add('input-userSignUp');
 
-
-  const buttonSignUp = document.createElement('input');
+  const buttonSignUp = document.createElement('button');
   buttonSignUp.classList.add('btn-windowSignUp');
-  buttonSignUp.textContent = 'SignUp';
-  buttonSignUp.type="submit";
- 
-  
+  buttonSignUp.textContent = 'Sign Up';
 
-   buttonReturn.addEventListener('click', () => {
+  buttonReturn.addEventListener('click', () => {
     navigateTo('/');
   });
 
-  formSignUp.addEventListener("submit", (event) => {
-    event.preventDefault();
-    
-    if(inputPasswordSignUp.value===inputConfirmPasswordSignUp.value && formSignUp.checkValidity()){
+  formSignUp.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (formSignUp.checkValidity()) {
+      if (inputPasswordSignUp.value !== inputConfirmPasswordSignUp.value) {
+        inputConfirmPasswordSignUp.setCustomValidity('Passwords do not match');
+        formSignUp.reportValidity();
+        return;
+      }
+      inputConfirmPasswordSignUp.setCustomValidity('');
       registerUser(inputEmailSignUp.value, inputPasswordSignUp.value);
-      validationEmail(inputEmailSignUp.value);
-      // Envía el formulario a Firebase
-    }else if(inputPasswordSignUp.value !==inputConfirmPasswordSignUp.value) {
-      alert("las contraseñas no son iguales")
-    }else{
+      // eslint-disable-next-line no-alert
+      alert('Registration successful! Welcome to our platform');
+      navigateTo('/board');
+    } else {
+      const inputs = formSignUp.querySelectorAll('input');
+      inputs.forEach((input) => {
+        if (input.checkValidity() === false) {
+          const errorText = input.dataset.error || 'Complete this field';
+          input.setCustomValidity(errorText);
+        } else {
+          input.setCustomValidity('');
+        }
+      });
       formSignUp.reportValidity();
-      
     }
   });
-  
-  // buttonSignUp.addEventListener('click', () => {
-    
-  //  if(inputPasswordSignUp.value===inputConfirmPasswordSignUp.value){
-  //   registerUser(inputEmailSignUp.value, inputPasswordSignUp.value);
-  //   validationEmail(inputEmailSignUp.value);
-  //   }
-  //   else{
-  //     alert("el password no es el mismo")
-  //   }
-  // });
 
   formSignUp.append(
     currentCode,
