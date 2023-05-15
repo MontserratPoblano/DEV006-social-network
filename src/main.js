@@ -23,6 +23,7 @@ const routes = [
 
 const defaultRoute = '/';
 const root = document.getElementById('root');
+const post=document.getElementById('board-post');
 
 function navigateTo(hash) {
   const route = routes.find((routeFound) => routeFound.path === hash);

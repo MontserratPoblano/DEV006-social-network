@@ -1,3 +1,4 @@
+import {post} from "../lib"
 function board(navigateTo) {
   const buttonReturn = document.createElement('button');
   buttonReturn.textContent = 'Back';
@@ -30,6 +31,9 @@ function board(navigateTo) {
   post.placeholder = 'What do you want to post?';
   post.className = 'post-class';
 
+  const btnSavePost=document.createElement('button');
+  btnSavePost.textContent='Save';
+
   const sort = document.createElement('select');
   sort.className = 'sort-class';
 
@@ -52,8 +56,12 @@ function board(navigateTo) {
 
   const containerImgPost = document.createElement('div');
   container.appendChild(containerImgPost);
-  containerImgPost.append(imageProfile, post);
+  containerImgPost.append(imageProfile, post,btnSavePost);
   containerImgPost.className = 'container-img-post';
+
+  const boardPost=document.createElement('div');
+  boardPost.id='board-post';
+  
 
   buttonReturn.addEventListener('click', () => {
     navigateTo('/');
@@ -67,9 +75,17 @@ function board(navigateTo) {
     navigateTo('/profile');
   });
 
+  btnSavePost.addEventListener('click',()=>{
+    
+    console.log(post(post.value))
+  })
+
+
+
   menu.append(boardMenu, profileMenu);
   container.append(menu, containerImgPost, sortLabel, sort);
-  section.append(buttonReturn, container);
+  section.append(buttonReturn, container,boardPost);
+
   return section;
 }
 
