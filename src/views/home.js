@@ -1,4 +1,7 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-alert */
 import { registerSignIn, registerWithGoogle } from '../lib/index.js';
+import { auth } from '../lib/firebase.js';
 
 function home(navigateTo) {
   const section = document.createElement('section');
@@ -23,38 +26,38 @@ function home(navigateTo) {
   description.textContent = 'Platform for the neighbors of a community where they can sell, give away, buy whatever they deem convenient';
   description.className = 'description-app';
 
-  const formHome=document.createElement('form');
-  formHome.className='form-home'
-  const labelEmailHome=document.createElement('label');
-  labelEmailHome.textContent='Email';
-  labelEmailHome.htmlFor='email-home';
-  labelEmailHome.className='name-email';
+  const formHome = document.createElement('form');
+  formHome.className = 'form-home';
+  const labelEmailHome = document.createElement('label');
+  labelEmailHome.textContent = 'Email';
+  labelEmailHome.htmlFor = 'email-home';
+  labelEmailHome.className = 'name-email';
   // const email = document.createElement('p');
   // email.textContent = 'Email';
   // email.className = 'name-email';
   const inputEmail = document.createElement('input');
-  inputEmail.type='email';
-  inputEmail.placeholder='Enter email';
-  inputEmail.required='true';
-  inputEmail.autocomplete='on'
-  inputEmail.id='email-home';
+  inputEmail.type = 'email';
+  inputEmail.placeholder = 'Enter email';
+  inputEmail.required = 'true';
+  inputEmail.autocomplete = 'on';
+  inputEmail.id = 'email-home';
   inputEmail.className = 'input-email';
-  
+
   // const password = document.createElement('p');
   // password.textContent = 'Password';
   // password.className = 'name-password';
 
-  const labelPasswordHome=document.createElement('label');
-  labelPasswordHome.textContent='Password';
-  labelPasswordHome.htmlFor='password-home';
-  labelPasswordHome.className='name-password';
+  const labelPasswordHome = document.createElement('label');
+  labelPasswordHome.textContent = 'Password';
+  labelPasswordHome.htmlFor = 'password-home';
+  labelPasswordHome.className = 'name-password';
 
   const inputPassword = document.createElement('input');
-  inputPassword.type='password';
-  inputPassword.placeholder='Enter password'
-  inputPassword.required='true';
-  inputPassword.autocomplete='on';
-  inputPassword.id='password-home';
+  inputPassword.type = 'password';
+  inputPassword.placeholder = 'Enter password';
+  inputPassword.required = 'true';
+  inputPassword.autocomplete = 'on';
+  inputPassword.id = 'password-home';
   inputPassword.classList.add('inputPassword');
   inputPassword.className = 'inputPassword';
 
@@ -68,7 +71,7 @@ function home(navigateTo) {
 
   const btnSignIn = document.createElement('button');
   btnSignIn.textContent = 'Sign In';
-  btnSignIn.type='submit';
+  btnSignIn.type = 'submit';
   btnSignIn.classList.add('btnSignIn');
   // btnSignIn.addEventListener('click', () => {
   //   navigateTo('/profile');
@@ -83,15 +86,27 @@ function home(navigateTo) {
   btnGoogle.classList.add('btnGoogle');
   btnGoogle.textContent = 'Sign In With Google';
 
-
-  formHome.append(labelEmailHome,inputEmail,labelPasswordHome,inputPassword,forgotPassword,
-    btnSignIn,btnGoogle,signUp)
+  formHome.append(
+    labelEmailHome,
+    inputEmail,
+    labelPasswordHome,
+    inputPassword,
+    forgotPassword,
+    btnSignIn,
+    btnGoogle,
+    signUp,
+  );
 
   btnGoogle.addEventListener('click', () => {
-    registerWithGoogle();
-    setTimeout(() => {
+    const resultPromise = registerWithGoogle();
+    resultPromise.then((user) => {
+      // eslint-disable-next-line no-alert
+      alert(`Welcome ${user.displayName}!`);
       navigateTo('/board');
-    }, 3000);
+    }).catch((error) => {
+      // eslint-disable-next-line no-alert
+      alert('Failed register, try again');
+    });
   });
 
   signUp.addEventListener('click', () => {
@@ -99,26 +114,21 @@ function home(navigateTo) {
   });
 
   btnSignIn.addEventListener('click', (e) => {
-    e.preventDefault()
-    // registerSignIn(auth,inputEmail.value,inputPassword.value)
-    // console.log(registerSignIn)
-    navigateTo('/board');
+    e.preventDefault();
+    const signInPromise = registerSignIn(auth, inputEmail.value, inputPassword.value);
+    signInPromise.then((user) => {
+      alert(`Welcome ${user.displayName}!`);
+      navigateTo('/board');
+    }).catch((error) => {
+      alert('Failed register, try again');
+    });
   });
-
 
   container.append(
     title,
     imageBuilding,
     description,
-    formHome
-    // email,
-    // inputEmail,
-    // password,
-    // inputPassword,
-    // forgotPassword,
-    // btnSignIn,
-    // btnGoogle,
-    // signUp,
+    formHome,
   );
   section.append(textHome, container);
   return section;
