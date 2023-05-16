@@ -1,9 +1,21 @@
+/* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-shadow */
+/* eslint-disable consistent-return */
+/* eslint-disable import/no-unresolved */
 /* eslint-disable no-alert */
-// eslint-disable-next-line import/no-unresolved
-import { createUserWithEmailAndPassword, GoogleAuthProvider,
-   signInWithPopup,signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js';
+import {
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithEmailAndPassword,
+} from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js';
+import {
+  collection,
+  addDoc,
+  getDocs,
+} from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js';
 import { auth, db } from './firebase.js';
-import {collection,addDoc} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js";
 // import { showMessage } from './message.js';
 
 export async function registerUser(email, password) {
@@ -20,39 +32,48 @@ export async function registerUser(email, password) {
   }
 }
 
-export async function registerSignIn(auth,email, password) {
- try {
-
-    const credentials=await signInWithEmailAndPassword(auth,email,password);
-    console.log(credentials)
- } catch (error) {
+export async function registerSignIn(auth, email, password) {
+  try {
+    const credentials = await signInWithEmailAndPassword(auth, email, password);
+    return credentials;
+  } catch (error) {
     const errorCode = error.code;
     const errorMessage = error.message;
-    console.log(errorCode)
-    console.log(errorMessage)
- }
+    console.log(errorCode);
+    console.log(errorMessage);
+  }
 }
 
 export async function registerWithGoogle() {
   const provider = new GoogleAuthProvider();
   try {
-    const credentials=await signInWithPopup(auth, provider);
-    alert("Welcome"+credentials.user.displayName, "success!")
+    const credentials = await signInWithPopup(auth, provider);
+    return credentials.user;
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(error);
+    return error;
   }
 }
 
-export async function post(description){
+export async function postBoard(description) {
   try {
-   const post= await addDoc(collection(db,"postDescription"),{
-    user:user.displayName,
-    description
-  });
-}catch(error){
-  console.log(error)
+    const docRef = await addDoc(collection(db, 'postDescription'), {
+      description,
+    });
+    // console.log('Document written with ID: ', docRef.id);
+  } catch (error) {
+    // console.log(error);
+  }
 }
+
+export async function getPosts() {
+  try {
+    const querySnapshot = await getDocs(collection(db, 'postDescription'));
+    return querySnapshot;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 // export async function validationEmail() {

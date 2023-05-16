@@ -1,4 +1,6 @@
-import {post} from "../lib"
+/* eslint-disable no-console */
+import { getPosts } from '../lib';
+
 function board(navigateTo) {
   const buttonReturn = document.createElement('button');
   buttonReturn.textContent = 'Back';
@@ -31,8 +33,9 @@ function board(navigateTo) {
   post.placeholder = 'What do you want to post?';
   post.className = 'post-class';
 
-  const btnSavePost=document.createElement('button');
-  btnSavePost.textContent='Save';
+  const btnSavePost = document.createElement('button');
+  btnSavePost.textContent = 'Save';
+  btnSavePost.className = 'btn-save-post';
 
   const sort = document.createElement('select');
   sort.className = 'sort-class';
@@ -56,12 +59,8 @@ function board(navigateTo) {
 
   const containerImgPost = document.createElement('div');
   container.appendChild(containerImgPost);
-  containerImgPost.append(imageProfile, post,btnSavePost);
+  containerImgPost.append(imageProfile, post);
   containerImgPost.className = 'container-img-post';
-
-  const boardPost=document.createElement('div');
-  boardPost.id='board-post';
-  
 
   buttonReturn.addEventListener('click', () => {
     navigateTo('/');
@@ -75,16 +74,30 @@ function board(navigateTo) {
     navigateTo('/profile');
   });
 
-  btnSavePost.addEventListener('click',()=>{
-    
-    console.log(post(post.value))
-  })
-
-
+  window.addEventListener('DOMContentLoaded', () => {
+    const boardPost = document.createElement('div');
+    boardPost.id = 'board-post';
+    container.append(boardPost);
+    const getBoardPromise = getPosts();
+    getBoardPromise.then((querySnapshot) => {
+      const getPostBoard = document.getElementById('board-post');
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const postDiv = document.createElement('div');
+        const paragraph = document.createElement('p');
+        paragraph.textContent = data.description;
+        postDiv.appendChild(paragraph);
+        getPostBoard.append(postDiv);
+        console.log(getPostBoard);
+      });
+    }).catch((error) => {
+      console.log(error);
+    });
+  });
 
   menu.append(boardMenu, profileMenu);
-  container.append(menu, containerImgPost, sortLabel, sort);
-  section.append(buttonReturn, container,boardPost);
+  container.append(menu, containerImgPost, btnSavePost, sortLabel, sort);
+  section.append(buttonReturn, container);
 
   return section;
 }
