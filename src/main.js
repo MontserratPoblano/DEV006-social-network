@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 // Este es el punto de entrada de tu aplicacion
 // import './app/signUp.js'
 
