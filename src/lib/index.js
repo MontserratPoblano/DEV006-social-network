@@ -10,11 +10,15 @@ import {
   signInWithPopup,
   signInWithEmailAndPassword,
 } from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js';
+
 import {
   collection,
   addDoc,
   getDocs,
+  deleteDoc,
+  doc,
 } from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js';
+
 import { auth, db } from './firebase.js';
 // import { showMessage } from './message.js';
 
@@ -71,6 +75,14 @@ export async function getPosts() {
   try {
     const querySnapshot = await getDocs(collection(db, 'postDescription'));
     return querySnapshot;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function deletePost(id) {
+  try {
+    await deleteDoc(doc(db, 'postDescription', id));
   } catch (error) {
     console.log(error);
   }

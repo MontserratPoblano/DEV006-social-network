@@ -82,9 +82,9 @@ function home(navigateTo) {
   signUp.href = '/signup';
   signUp.classList.add('btnSignUp');
 
-  const btnGoogle = document.createElement('button');
+  const btnGoogle = document.createElement('img');
   btnGoogle.classList.add('btnGoogle');
-  btnGoogle.textContent = 'Sign In With Google';
+  btnGoogle.src = ('./images/btn_google_signin_dark_focus_web.png');
 
   formHome.append(
     labelEmailHome,

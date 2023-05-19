@@ -9,9 +9,9 @@ function signup(navigateTo) {
   const formSignUp = document.createElement('form');
   formSignUp.classList.add('container-formSignUp');
 
-  const currentCode = document.createElement('p');
-  currentCode.textContent = 'current code ****';
-  currentCode.classList.add('paragraph-signUp');
+  // const currentCode = document.createElement('p');
+  // currentCode.textContent = 'current code ****';
+  // currentCode.classList.add('paragraph-signUp');
 
   const userSignUp = document.createElement('p');
   userSignUp.textContent = 'User name';
@@ -48,7 +48,7 @@ function signup(navigateTo) {
   confirmPassword.classList.add('paragraph-signUp');
 
   const inputConfirmPasswordSignUp = document.createElement('input');
-  inputConfirmPasswordSignUp.placeholder = 'confirm password';
+  inputConfirmPasswordSignUp.placeholder = 'Confirm password';
   inputConfirmPasswordSignUp.required = true;
   // inputConfirmPasswordSignUp.autocomplete = true;
   inputConfirmPasswordSignUp.type = 'password';
@@ -90,7 +90,7 @@ function signup(navigateTo) {
   });
 
   formSignUp.append(
-    currentCode,
+    // currentCode,
     userSignUp,
     inputUserSignUp,
     emailSignUp,

@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
-import { getPosts } from '../lib';
+import { getPosts, postBoard, deletePost } from '../lib';
+import { drawModal } from './modal.js';
 
 function board(navigateTo) {
   const buttonReturn = document.createElement('button');
@@ -74,29 +75,50 @@ function board(navigateTo) {
     navigateTo('/profile');
   });
 
-  window.addEventListener('DOMContentLoaded', () => {
-    const boardPost = document.createElement('div');
-    boardPost.id = 'board-post';
-    container.append(boardPost);
-    const getBoardPromise = getPosts();
-    getBoardPromise.then((querySnapshot) => {
-      const getPostBoard = document.getElementById('board-post');
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        const postDiv = document.createElement('div');
-        const paragraph = document.createElement('p');
-        paragraph.textContent = data.description;
-        postDiv.appendChild(paragraph);
-        getPostBoard.append(postDiv);
-        console.log(getPostBoard);
+  // escucha el envio de post nuevos para agregarlos a la coleccion firebase
+  btnSavePost.addEventListener('click', () => {
+    postBoard(post.value);
+  });
+  // cargando posts que estan hasta el momento
+
+  const boardPost = document.createElement('div');
+  boardPost.id = 'board-post';
+  const getBoardPromise = getPosts();
+  getBoardPromise.then((querySnapshot) => {
+    const getPostBoard = document.getElementById('board-post');
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      const postDiv = document.createElement('div');
+      const paragraph = document.createElement('p');
+      paragraph.textContent = data.description;
+      const btnDelete = document.createElement('button');
+      btnDelete.textContent = '🗑 Delete';
+      btnDelete.dataset.id = doc.id;
+      postDiv.append(paragraph, btnDelete);
+      getPostBoard.append(postDiv);
+
+      btnDelete.addEventListener('click', () => {
+        const showingModal = drawModal();
+        showingModal.classList.add('show');
+        container.appendChild(showingModal);
+
+        // const clickYes = document.querySelector('btn-Yes');
+        // console.log(clickYes);
+        // const containerDad = e.target.parentElement;
+        // console.log(containerDad);
+        const clickYes = container.querySelector('.btn-Yes');
+        console.log(clickYes);  
+        clickYes.addEventListener('click', (event) => {
+       deletePost(event.target.dataset.id);
+        });
       });
-    }).catch((error) => {
-      console.log(error);
     });
+  }).catch((error) => {
+    console.log(error);
   });
 
   menu.append(boardMenu, profileMenu);
-  container.append(menu, containerImgPost, btnSavePost, sortLabel, sort);
+  container.append(menu, containerImgPost, btnSavePost, sortLabel, sort, boardPost);
   section.append(buttonReturn, container);
 
   return section;
