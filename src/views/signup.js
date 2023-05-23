@@ -9,10 +9,6 @@ function signup(navigateTo) {
   const formSignUp = document.createElement('form');
   formSignUp.classList.add('container-formSignUp');
 
-  // const currentCode = document.createElement('p');
-  // currentCode.textContent = 'current code ****';
-  // currentCode.classList.add('paragraph-signUp');
-
   const userSignUp = document.createElement('p');
   userSignUp.textContent = 'User name';
   userSignUp.classList.add('paragraph-signUp');

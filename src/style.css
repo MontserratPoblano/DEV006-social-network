@@ -472,6 +472,7 @@ body {
   pointer-events: none;
 }
 
+
 .content-modal{
   width:50%;
   height: 10%;
@@ -544,17 +545,149 @@ body {
 }
 
 
-#board-post div{
+.post-div {
   border: 1px solid black;
   display: flex;
-  margin: 5%;
+  margin: 1%;
   border-radius: 10px;
   background-color: #D9D9D9;
+  flex-direction: column;
+  height: auto;
 
 }
 
 #board-post p {
   padding-left: 5%;
-  font-family:'Courier New', Courier, monospace;
+  font-family: 'Roboto';
+  display: flex;
+  justify-content: flex-start;
+  text-align: left;
+  height: auto;
+  width: auto;
+  
+}
+.name-user {
+  display:inline-block;
+  text-align: start;
+  font-size: 16px;
+  margin-top:5%;
+  margin-bottom: 0px;
+  padding-bottom: 0%;
+}
+
+.btn-editdelete {
+  border: none;
+  display: flex;
+  justify-content: flex-end;
+  height: 20%;
+  
+}
+
+ .btn-editBoard, .btn-deletepost {
+  margin: 3%;
+  height: 30%;
+  border: none;
+  background-color:  #D9D9D9;
+  font-size: x-large;
+  
+} 
+
+
+.container-heart {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0%;
+}
+.fa-heart{
+  color: #C81D25;
+  margin-right: 5%;
+
+}
+.counter-hearts {
+  margin-right: 2%;
+}
+
+/* Modal Edit Post */
+
+.dad-container {
+  width:80%;
+  height: 100vw;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+
+
+}
+.container-edit-modal {
+  width: 90%;
+  height: 65vw;
+  background-color: #B4D7EA;
+  margin: 5%;
+  border-radius: 10px;
+  border: 2px #00bed3 solid;
+  
+}
+
+.title-edit-modal {
+  text-align: center;
+  
+
+}
+.imageProfile-edit {
+  position: fixed;
+  width: 10%;
+  height: 13%;
+  left: 50%;
+  margin-right: 20%;
+  transform: translate(-380%);
+
+}
+.name-user-edit {
+  font-size: medium;
+  text-align: left;
+  margin-left: 20%;
+  margin-top: 15%;
+  
+}
+
+.btn-editpost {
+  color: white;
+  position: fixed;
+  bottom: 36%;
+  left: 80%;
+  transform: translate(-50%, -50%);
+  width: 20%;
+  height: 5%;
+  background-color: #087E8B;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.btn-editpost:hover:active {
+  background-color:black;
+}
+
+.btn-x-edit {
+  border: none;
+  background-color: transparent;
+  font-size: larger;
+  position: fixed;
+  left:88%;
+  transform: translate(-50%);
+}
+.content-edit-modal {
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 83%;
+  height: 20vw;
+  background-color: #D9D9D9;
+  border-radius: 10px;
+  padding: 4%;
+  
   
 }
