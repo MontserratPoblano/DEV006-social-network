@@ -1,6 +1,12 @@
+/* eslint-disable no-alert */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-plusplus */
 /* eslint-disable no-console */
-import { getPosts, postBoard, deletePost } from '../lib';
-import { drawModal } from './modal.js';
+
+import { drawModal, onDrawData, createPostModal } from './modal.js';
+import {
+  postBoard, onGetPost, deletePost, editPost, getPost, updatePost,
+} from '../lib/index.js';
 
 function board(navigateTo) {
   const buttonReturn = document.createElement('button');
@@ -75,47 +81,108 @@ function board(navigateTo) {
     navigateTo('/profile');
   });
 
-  // escucha el envio de post nuevos para agregarlos a la coleccion firebase
-  btnSavePost.addEventListener('click', () => {
-    postBoard(post.value);
-  });
-  // cargando posts que estan hasta el momento
-
+  // contenedor (espacio) donde se pintarán nuestros post
   const boardPost = document.createElement('div');
   boardPost.id = 'board-post';
-  const getBoardPromise = getPosts();
-  getBoardPromise.then((querySnapshot) => {
-    const getPostBoard = document.getElementById('board-post');
-    querySnapshot.forEach((doc) => {
-      const data = doc.data();
-      const postDiv = document.createElement('div');
-      const paragraph = document.createElement('p');
-      paragraph.textContent = data.description;
-      const btnDelete = document.createElement('button');
-      btnDelete.textContent = '🗑 Delete';
-      btnDelete.dataset.id = doc.id;
-      postDiv.append(paragraph, btnDelete);
-      getPostBoard.append(postDiv);
 
-      btnDelete.addEventListener('click', () => {
+  btnSavePost.addEventListener('click', () => {
+    if (post.value === '') {
+      const valuePostPromise = postBoard();
+      alert('Please enter a message');
+    } else {
+      const valuePostPromise = postBoard(post.value);
+      valuePostPromise.then(() => {
+        alert('Message successfully saved!');
+        post.value = '';
+      });
+    }
+  });
+
+  onGetPost((snapshot) => {
+    const getPostBoard = document.getElementById('board-post');
+    getPostBoard.innerHTML = '';
+
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+      const drawingPost = onDrawData(data, doc);
+      getPostBoard.append(drawingPost);
+    });
+
+    const btnEditModalList = document.querySelectorAll('.btn-editBoard');
+    // const textAreaEdit = document.querySelector('.content-edit-modal');
+
+    let data;
+    let textAreaEdit;
+
+    btnEditModalList.forEach((btnEdit) => {
+      btnEdit.addEventListener('click', (event) => {
+        const id = event.target.dataset.id;
+        const gettingPost = getPost(id);
+        // console.log(gettingPost);
+        gettingPost.then((doc) => {
+          data = doc.data();
+          textAreaEdit = document.querySelector('.content-edit-modal');
+          textAreaEdit.value = data.description;
+          // console.log(textAreaEdit.value);
+        });
+
+        const showingModalEdit = createPostModal();
+        showingModalEdit.classList.add('show');
+        container.appendChild(showingModalEdit);
+
+        const postEdit = container.querySelector('.btn-editpost');
+        postEdit.addEventListener('click', () => {
+          const updatingPost = updatePost(id, { description: textAreaEdit.value });
+          console.log(updatingPost);
+          updatingPost.then(() => {
+            alert('Message successfully updated!');
+            container.removeChild(showingModalEdit);
+          }).catch(() => {
+            alert('Error updating message');
+          });
+        });
+        const ignoreEdit = container.querySelector('.btn-x-edit');
+        ignoreEdit.addEventListener('click', () => {
+          // console.log(ignoreEdit);
+          container.removeChild(showingModalEdit);
+        });
+      });
+    });
+    const btnDeleteList = document.querySelectorAll('.btn-deletepost');
+    btnDeleteList.forEach((btnDelete) => {
+      btnDelete.addEventListener('click', (event) => {
+        console.log(btnDelete);
         const showingModal = drawModal();
         showingModal.classList.add('show');
         container.appendChild(showingModal);
 
-        // const clickYes = document.querySelector('btn-Yes');
-        // console.log(clickYes);
-        // const containerDad = e.target.parentElement;
-        // console.log(containerDad);
         const clickYes = container.querySelector('.btn-Yes');
-        console.log(clickYes);  
-        clickYes.addEventListener('click', (event) => {
-       deletePost(event.target.dataset.id);
+        clickYes.addEventListener('click', () => {
+          deletePost(event.target.dataset.id);
+          container.removeChild(showingModal);
+        });
+        const clickNo = container.querySelectorAll('.btn-No, .btn-x');
+        clickNo.forEach((elements) => {
+          elements.addEventListener('click', () => {
+            container.removeChild(showingModal);
+          });
         });
       });
     });
-  }).catch((error) => {
-    console.log(error);
   });
+
+  // const count = 0;
+  // btnHeart.addEventListener('click', () => {
+  //   if (btnHeart.classList.contains('active')) {
+  //     count--;
+  //     btnHeart.classList.remove('active');
+  //   } else {
+  //     count++;
+  //     btnHeart.classList.add('active');
+  //   }
+  //   counterHearts.textContent = count;
+  // });
+  // //
 
   menu.append(boardMenu, profileMenu);
   container.append(menu, containerImgPost, btnSavePost, sortLabel, sort, boardPost);

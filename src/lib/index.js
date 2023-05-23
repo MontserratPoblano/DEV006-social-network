@@ -17,12 +17,15 @@ import {
   getDocs,
   deleteDoc,
   doc,
+  onSnapshot,
+  updateDoc,
+  getDoc,
 } from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js';
 
 import { auth, db } from './firebase.js';
 // import { showMessage } from './message.js';
 
-export async function registerUser(email, password) {
+export async function registerUser(auth, email, password) {
   try {
     await createUserWithEmailAndPassword(auth, email, password);
   } catch (error) {
@@ -65,7 +68,7 @@ export async function postBoard(description) {
     const docRef = await addDoc(collection(db, 'postDescription'), {
       description,
     });
-    // console.log('Document written with ID: ', docRef.id);
+    console.log(docRef);
   } catch (error) {
     // console.log(error);
   }
@@ -80,6 +83,17 @@ export async function getPosts() {
   }
 }
 
+// export function deletePost(id) {
+//   return new Promise((resolve, reject) => {
+//     try {
+//       deleteDoc(doc(db, 'postDescription', id));
+//       resolve();
+//     } catch (error) {
+//       reject(error);
+//     }
+//   });
+// }
+
 export async function deletePost(id) {
   try {
     await deleteDoc(doc(db, 'postDescription', id));
@@ -87,6 +101,48 @@ export async function deletePost(id) {
     console.log(error);
   }
 }
+
+// export const onGetPost = (callback) => onSnapshot(collection(db, 'postDescription'), callback);
+
+export function onGetPost(callback) {
+  onSnapshot(collection(db, 'postDescription'), callback);
+}
+
+export async function editPost() {
+  try {
+    const descriptionRef = doc(db, 'postDescription');
+    console.log(descriptionRef);
+    await updateDoc(descriptionRef, {
+      description: true,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getPost(id) {
+  try {
+    const getDocPost = await getDoc(doc(db, 'postDescription', id));
+    return getDocPost;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// *****PREGUNTAR EN OH LA DIFERENCIA DE ESTA FUNCION CON LA LINEA 142*****
+// export async function updatePost(id, newFields) {
+//   try {
+//     const updateDocPost = await updateDoc(doc(db, 'posDescription', id), newFields);
+//     return updateDocPost;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+
+export const updatePost = (id, newFields) => updateDoc(doc(db, 'postDescription', id), newFields);
+
+// const unsub = (callback) => onSnapshot(collection(db, 'postDescription'), callback);
+// console.log(unsub);
 
 // export async function validationEmail() {
 //   try {
