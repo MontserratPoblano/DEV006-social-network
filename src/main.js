@@ -1,7 +1,4 @@
-/* eslint-disable import/no-unresolved */
-// Este es el punto de entrada de tu aplicacion
-// import './app/signUp.js'
-
+// Punto de entrada de la aplicación
 import profile from './views/profile.js';
 import home from './views/home.js';
 import signup from './views/signup.js';

@@ -1,58 +1,59 @@
-import { registerUser } from '../lib';
+/* eslint-disable operator-linebreak */
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable no-console */
+import { registerUser, addDisplayName } from '../lib/index.js';
+import { auth } from '../lib/firebase.js';
 
 function signup(navigateTo) {
   const sectionSignUp = document.createElement('section');
   const buttonReturn = document.createElement('button');
-  buttonReturn.textContent = 'Back';
-  buttonReturn.classList.add('buttonReturn');
-
   const formSignUp = document.createElement('form');
-  formSignUp.classList.add('container-formSignUp');
-
   const userSignUp = document.createElement('p');
-  userSignUp.textContent = 'User name';
-  userSignUp.classList.add('paragraph-signUp');
-
   const inputUserSignUp = document.createElement('input');
-  inputUserSignUp.placeholder = 'Enter user';
-  // inputUserSignUp.type = 'text';
-  inputUserSignUp.required = true;
+  const emailSignUp = document.createElement('p');
+  const inputEmailSignUp = document.createElement('input');
+  const passwordSignUp = document.createElement('p');
+  const inputPasswordSignUp = document.createElement('input');
+  const confirmPassword = document.createElement('p');
+  const inputConfirmPasswordSignUp = document.createElement('input');
+  const buttonSignUp = document.createElement('button');
+  const notification = document.createElement('div');
+
+  buttonReturn.classList.add('buttonReturn');
+  formSignUp.classList.add('container-formSignUp');
+  userSignUp.classList.add('paragraph-signUp');
+  passwordSignUp.classList.add('paragraph-signUp');
+  emailSignUp.classList.add('paragraph-signUp');
+  inputEmailSignUp.classList.add('input-userSignUp');
+  inputPasswordSignUp.classList.add('input-userSignUp');
+  confirmPassword.classList.add('paragraph-signUp');
+  buttonSignUp.classList.add('btn-windowSignUp');
+  notification.classList.add('notification');
+  inputConfirmPasswordSignUp.classList.add('input-userSignUp');
   inputUserSignUp.classList.add('input-userSignUp');
 
-  const emailSignUp = document.createElement('p');
+  userSignUp.textContent = 'User name';
+  buttonReturn.textContent = 'Back';
   emailSignUp.textContent = 'E-mail';
-  emailSignUp.classList.add('paragraph-signUp');
-
-  const inputEmailSignUp = document.createElement('input');
-  inputEmailSignUp.placeholder = 'Enter email';
-  inputEmailSignUp.required = true;
-  inputEmailSignUp.type = 'email';
-  inputEmailSignUp.classList.add('input-userSignUp');
-
-  const passwordSignUp = document.createElement('p');
   passwordSignUp.textContent = 'Password';
-  passwordSignUp.classList.add('paragraph-signUp');
-
-  const inputPasswordSignUp = document.createElement('input');
-  inputPasswordSignUp.placeholder = 'Enter password';
-  inputPasswordSignUp.required = true;
-  inputPasswordSignUp.type = 'password';
-  inputPasswordSignUp.classList.add('input-userSignUp');
-
-  const confirmPassword = document.createElement('p');
   confirmPassword.textContent = 'Confirm password';
-  confirmPassword.classList.add('paragraph-signUp');
-
-  const inputConfirmPasswordSignUp = document.createElement('input');
-  inputConfirmPasswordSignUp.placeholder = 'Confirm password';
-  inputConfirmPasswordSignUp.required = true;
-  // inputConfirmPasswordSignUp.autocomplete = true;
-  inputConfirmPasswordSignUp.type = 'password';
-  inputConfirmPasswordSignUp.classList.add('input-userSignUp');
-
-  const buttonSignUp = document.createElement('button');
-  buttonSignUp.classList.add('btn-windowSignUp');
   buttonSignUp.textContent = 'Sign Up';
+
+  inputUserSignUp.placeholder = 'Enter user';
+  inputEmailSignUp.placeholder = 'Enter email';
+  inputPasswordSignUp.placeholder = 'Enter password';
+  inputConfirmPasswordSignUp.placeholder = 'Confirm password';
+
+  inputUserSignUp.required = true;
+  inputConfirmPasswordSignUp.required = true;
+  inputEmailSignUp.required = true;
+  inputPasswordSignUp.required = true;
+
+  inputEmailSignUp.type = 'email';
+  inputPasswordSignUp.type = 'password';
+  inputConfirmPasswordSignUp.type = 'password';
+
+  userSignUp.autocomplete = 'on';
 
   buttonReturn.addEventListener('click', () => {
     navigateTo('/');
@@ -60,33 +61,28 @@ function signup(navigateTo) {
 
   formSignUp.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (formSignUp.checkValidity()) {
-      if (inputPasswordSignUp.value !== inputConfirmPasswordSignUp.value) {
-        inputConfirmPasswordSignUp.setCustomValidity('Passwords do not match');
-        formSignUp.reportValidity();
-        return;
-      }
-      inputConfirmPasswordSignUp.setCustomValidity('');
-      registerUser(inputEmailSignUp.value, inputPasswordSignUp.value);
-      // eslint-disable-next-line no-alert
-      alert('Registration successful! Welcome to our platform');
-      navigateTo('/board');
-    } else {
-      const inputs = formSignUp.querySelectorAll('input');
-      inputs.forEach((input) => {
-        if (input.checkValidity() === false) {
-          const errorText = input.dataset.error || 'Complete this field';
-          input.setCustomValidity(errorText);
-        } else {
-          input.setCustomValidity('');
-        }
+    const registerPromise = 
+    registerUser(auth, inputEmailSignUp.value, inputPasswordSignUp.value);
+    registerPromise.then(() => {
+      addDisplayName(inputUserSignUp.value).then(() => {
+        notification.textContent = 'Registration successful!';
+        notification.style.display = 'block';
+        setTimeout(() => {
+          notification.style.display = 'none';
+          navigateTo('/');
+        }, 2000);
+      }).catch(() => {
+        console.log('Error al agregar el nombre de usuario al perfil:');
+        notification.textContent = 'Registration failed. Please try again';
+        notification.style.display = 'block';
+        setTimeout(() => {
+          notification.style.display = 'none';
+        }, 3000);
       });
-      formSignUp.reportValidity();
-    }
+    });
   });
 
   formSignUp.append(
-    // currentCode,
     userSignUp,
     inputUserSignUp,
     emailSignUp,
@@ -97,7 +93,8 @@ function signup(navigateTo) {
     inputConfirmPasswordSignUp,
     buttonSignUp,
   );
-  sectionSignUp.append(buttonReturn, formSignUp);
+
+  sectionSignUp.append(buttonReturn, formSignUp, notification);
 
   return sectionSignUp;
 }

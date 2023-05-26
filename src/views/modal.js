@@ -1,5 +1,5 @@
-// pinta los elementos del modal
-export function drawModal() {
+// modal de confirmación de eliminar mensaje
+export function confirmDeleteModal() {
   const containerModal = document.createElement('div');
   containerModal.classList.add('container-modal');
 
@@ -31,13 +31,14 @@ export function drawModal() {
   return containerModal;
 }
 
+// dibuja la data en tiempo real
 export function onDrawData(data, doc) {
   // todos los elementos que componen el post
   const postDiv = document.createElement('div');
   postDiv.className = 'post-div';
 
-  const nameUser = document.createElement('h1');
-  nameUser.textContent = 'Pedrito Pascal';
+  const nameUser = document.createElement('p');
+  nameUser.textContent = data.email;
   nameUser.className = 'name-user';
 
   const paragraph = document.createElement('p');
@@ -55,7 +56,7 @@ export function onDrawData(data, doc) {
   const divBtnEditDelete = document.createElement('div');
   divBtnEditDelete.classList.add('btn-editdelete');
   divBtnEditDelete.append(btnEditBoard, btnDelete);
-  postDiv.append(divBtnEditDelete, paragraph);
+  postDiv.append(divBtnEditDelete, nameUser, paragraph);
   // // funcionalidad corazon de los post
   // const containerHeart = document.createElement('div');
   // containerHeart.className = 'container-heart';
@@ -71,7 +72,7 @@ export function onDrawData(data, doc) {
 }
 
 // MODAL DE EDITAR
-export function createPostModal() {
+export function createPostModal(data) {
   const dadContainerEditModal = document.createElement('div');
   dadContainerEditModal.className = 'dad-container';
 
@@ -82,9 +83,8 @@ export function createPostModal() {
   titleEditModal.textContent = 'Edit post';
   titleEditModal.className = 'title-edit-modal';
 
-  // AVERIGUAR COMO REUTILIZAR ESTO
-  const nameUser = document.createElement('h1');
-  nameUser.textContent = 'Pedrito Pascal';
+  const nameUser = document.createElement('p');
+  nameUser.textContent = data.email;
   nameUser.className = 'name-user-edit';
 
   const contentEditModal = document.createElement('textarea');

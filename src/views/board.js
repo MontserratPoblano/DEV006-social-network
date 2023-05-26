@@ -1,76 +1,87 @@
-/* eslint-disable no-alert */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-console */
 
-import { drawModal, onDrawData, createPostModal } from './modal.js';
+import { confirmDeleteModal, onDrawData, createPostModal } from './modal.js';
 import {
-  postBoard, onGetPost, deletePost, editPost, getPost, updatePost,
+  postBoard, onGetPost, deletePost, getPost, updatePost, logOut,
 } from '../lib/index.js';
+import { auth } from '../lib/firebase.js';
 
 function board(navigateTo) {
   const buttonReturn = document.createElement('button');
-  buttonReturn.textContent = 'Back';
-  buttonReturn.classList.add('buttonReturn');
-
+  const buttonLogOut = document.createElement('button');
   const section = document.createElement('section');
-  section.className = 'section-board';
-
-  const container = document.createElement('div');
-  container.className = 'container-app-board';
-
   const menu = document.createElement('div');
-  menu.className = 'menu-class';
-
   const boardMenu = document.createElement('a');
-  boardMenu.href = '/board';
-  boardMenu.textContent = 'Board';
-  boardMenu.className = 'menu-top-board';
-
   const profileMenu = document.createElement('a');
-  profileMenu.href = '/profile';
-  profileMenu.textContent = 'Profile';
-  profileMenu.className = 'menu-top-profile';
-
   const imageProfile = document.createElement('img');
-  imageProfile.src = ('./images/vector-profile-photo.svg');
-  imageProfile.classList.add('imageProfile');
-
+  const container = document.createElement('div');
   const post = document.createElement('textarea');
-  post.placeholder = 'What do you want to post?';
+  const btnSavePost = document.createElement('button');
+  const sort = document.createElement('select');
+  const option1 = document.createElement('option');
+  const sortLabel = document.createElement('label');
+  const option2 = document.createElement('option');
+  const containerImgPost = document.createElement('div');
+  const boardPost = document.createElement('div');
+
+  buttonReturn.textContent = 'Back';
+  buttonLogOut.textContent = 'Log Out';
+  boardMenu.textContent = 'Board';
+  profileMenu.textContent = 'Profile';
+  btnSavePost.textContent = 'Save';
+  sortLabel.textContent = 'Sort by';
+
+  buttonReturn.className = 'buttonReturn';
+  buttonLogOut.className = 'btn-logout';
+  imageProfile.className = 'imageProfile';
+  section.className = 'section-board';
+  container.className = 'container-app-board';
+  menu.className = 'menu-class';
+  boardMenu.className = 'menu-top-board';
+  profileMenu.className = 'menu-top-profile';
+  sortLabel.className = 'sortLabel-class';
+  sort.className = 'sort-class';
+  option1.className = 'options-class';
+  option2.className = 'options-class';
+  containerImgPost.className = 'container-img-post';
+  btnSavePost.className = 'btn-save-post';
   post.className = 'post-class';
 
-  const btnSavePost = document.createElement('button');
-  btnSavePost.textContent = 'Save';
-  btnSavePost.className = 'btn-save-post';
+  boardPost.id = 'board-post';
+  boardMenu.href = '/board';
+  profileMenu.href = '/profile';
 
-  const sort = document.createElement('select');
-  sort.className = 'sort-class';
+  imageProfile.src = ('./images/vector-profile-photo.svg');
 
-  const sortLabel = document.createElement('label');
-  sortLabel.textContent = 'Sort by';
-  sortLabel.className = 'sortLabel-class';
-  sort.appendChild(sortLabel);
-
-  const option1 = document.createElement('option');
   option1.value = 'recent';
-  option1.text = 'Most Recent';
-  option1.className = 'options-class';
-  sort.appendChild(option1);
-
-  const option2 = document.createElement('option');
   option2.value = 'oldest';
-  option2.text = 'Oldest';
-  option2.className = 'options-class';
-  sort.appendChild(option2);
 
-  const containerImgPost = document.createElement('div');
+  option2.text = 'Oldest';
+  option1.text = 'Most Recent';
+
+  post.placeholder = 'What do you want to post?';
+
+  sort.appendChild(sortLabel);
+  sort.appendChild(option1);
+  sort.appendChild(option2);
   container.appendChild(containerImgPost);
   containerImgPost.append(imageProfile, post);
-  containerImgPost.className = 'container-img-post';
 
   buttonReturn.addEventListener('click', () => {
     navigateTo('/');
+  });
+
+  buttonLogOut.addEventListener('click', () => {
+    const outBoardPromise = logOut(auth);
+    outBoardPromise.then(() => {
+      console.log(outBoardPromise);
+      alert('Sign-out successful');
+      navigateTo('/');
+    }).catch((error) => {
+      alert('An error happened');
+    });
   });
 
   boardMenu.addEventListener('click', () => {
@@ -81,10 +92,6 @@ function board(navigateTo) {
     navigateTo('/profile');
   });
 
-  // contenedor (espacio) donde se pintarán nuestros post
-  const boardPost = document.createElement('div');
-  boardPost.id = 'board-post';
-
   btnSavePost.addEventListener('click', () => {
     if (post.value === '') {
       const valuePostPromise = postBoard();
@@ -92,6 +99,7 @@ function board(navigateTo) {
     } else {
       const valuePostPromise = postBoard(post.value);
       valuePostPromise.then(() => {
+        console.log(valuePostPromise);
         alert('Message successfully saved!');
         post.value = '';
       });
@@ -108,28 +116,46 @@ function board(navigateTo) {
       getPostBoard.append(drawingPost);
     });
 
-    const btnEditModalList = document.querySelectorAll('.btn-editBoard');
-    // const textAreaEdit = document.querySelector('.content-edit-modal');
-
     let data;
     let textAreaEdit;
+    let userAreaEdit;
 
+    const btnEditModalList = document.querySelectorAll('.btn-editBoard');
+    const btnDeleteList = document.querySelectorAll('.btn-deletepost');
+
+    // const user = auth.currentUser;
+    // console.log(data.userUid, 'user de board.js');
+    // if (user.uid === data.userUid) {
+    //   console.log('uids son iguales');
+    //   // btnDeleteList.style.display = 'block';
+    //   // btnEditModalList.style.display = 'block';
+    // } else {
+    //   console.log('uids no son iguales');
+    //   // btnDeleteList.style.display = 'none';
+    //   // btnEditModalList.style.display = 'none';
+    //   console.log('No tienes permiso para publicar este post');
+    // }
+
+    // opción editar
     btnEditModalList.forEach((btnEdit) => {
       btnEdit.addEventListener('click', (event) => {
         const id = event.target.dataset.id;
         const gettingPost = getPost(id);
-        // console.log(gettingPost);
+        console.log(gettingPost, 'getting post');
         gettingPost.then((doc) => {
           data = doc.data();
           textAreaEdit = document.querySelector('.content-edit-modal');
+          // userAreaEdit = document.querySelector('.name-user-edit');
+          // userAreaEdit.value = data.email;
           textAreaEdit.value = data.description;
-          // console.log(textAreaEdit.value);
+          console.log(textAreaEdit.value);
+          // console.log(data);
         });
 
-        const showingModalEdit = createPostModal();
+        // edit del modal
+        const showingModalEdit = createPostModal(data);
         showingModalEdit.classList.add('show');
         container.appendChild(showingModalEdit);
-
         const postEdit = container.querySelector('.btn-editpost');
         postEdit.addEventListener('click', () => {
           const updatingPost = updatePost(id, { description: textAreaEdit.value });
@@ -148,11 +174,12 @@ function board(navigateTo) {
         });
       });
     });
-    const btnDeleteList = document.querySelectorAll('.btn-deletepost');
+
+    // eliminar post
     btnDeleteList.forEach((btnDelete) => {
       btnDelete.addEventListener('click', (event) => {
         console.log(btnDelete);
-        const showingModal = drawModal();
+        const showingModal = confirmDeleteModal();
         showingModal.classList.add('show');
         container.appendChild(showingModal);
 
@@ -171,22 +198,9 @@ function board(navigateTo) {
     });
   });
 
-  // const count = 0;
-  // btnHeart.addEventListener('click', () => {
-  //   if (btnHeart.classList.contains('active')) {
-  //     count--;
-  //     btnHeart.classList.remove('active');
-  //   } else {
-  //     count++;
-  //     btnHeart.classList.add('active');
-  //   }
-  //   counterHearts.textContent = count;
-  // });
-  // //
-
   menu.append(boardMenu, profileMenu);
   container.append(menu, containerImgPost, btnSavePost, sortLabel, sort, boardPost);
-  section.append(buttonReturn, container);
+  section.append(buttonReturn, buttonLogOut, container);
 
   return section;
 }
