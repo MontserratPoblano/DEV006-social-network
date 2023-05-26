@@ -1,5 +1,6 @@
+/* eslint-disable operator-linebreak */
+/* eslint-disable no-trailing-spaces */
 /* eslint-disable no-unused-vars */
-/* eslint-disable no-alert */
 import { registerSignIn, registerWithGoogle } from '../lib/index.js';
 import { auth } from '../lib/firebase.js';
 
@@ -70,14 +71,18 @@ function home(navigateTo) {
   });
 
   const btnSignIn = document.createElement('button');
-  btnSignIn.textContent = 'Sign In';
+  btnSignIn.textContent = 'Log In';
   btnSignIn.type = 'submit';
   btnSignIn.classList.add('btnSignIn');
   // btnSignIn.addEventListener('click', () => {
   //   navigateTo('/profile');
   // });
 
-  const signUp = document.createElement('a');
+  const textBeforeSignUp = document.createElement('span');
+  textBeforeSignUp.textContent = 'Don\'t have an account? ';
+  textBeforeSignUp.className = 'text';
+
+  const signUp = document.createElement('button');
   signUp.textContent = 'Sign Up';
   signUp.href = '/signup';
   signUp.classList.add('btnSignUp');
@@ -94,6 +99,7 @@ function home(navigateTo) {
     forgotPassword,
     btnSignIn,
     btnGoogle,
+    textBeforeSignUp,
     signUp,
   );
 
@@ -109,17 +115,17 @@ function home(navigateTo) {
     });
   });
 
-  signUp.addEventListener('click', () => {
+  signUp.addEventListener('click', (e) => {
+    e.preventDefault();
     navigateTo('/signup');
   });
 
   btnSignIn.addEventListener('click', (e) => {
     e.preventDefault();
     const signInPromise = registerSignIn(auth, inputEmail.value, inputPassword.value);
-    signInPromise.then((user) => {
-      alert(`Welcome ${user.displayName}!`);
+    signInPromise.then(() => {
       navigateTo('/board');
-    }).catch((error) => {
+    }).catch(() => {
       alert('Failed register, try again');
     });
   });

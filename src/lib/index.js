@@ -1,15 +1,14 @@
 /* eslint-disable no-console */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-shadow */
-/* eslint-disable consistent-return */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable no-alert */
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
   signInWithEmailAndPassword,
-} from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js';
+  signOut,
+  onAuthStateChanged,
+  getAuth,
+  updateProfile,
+} from 'firebase/auth';
 
 import {
   collection,
@@ -20,14 +19,25 @@ import {
   onSnapshot,
   updateDoc,
   getDoc,
-} from 'https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore.js';
+} from 'firebase/firestore';
 
 import { auth, db } from './firebase.js';
-// import { showMessage } from './message.js';
 
+// observador usuario con sesion activa
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    const uid = user.uid;
+    console.log(uid, 'usuario activo');
+  } else {
+    console.log('no hay usuario activo');
+  }
+});
+
+// formulario de registro
 export async function registerUser(auth, email, password) {
   try {
-    await createUserWithEmailAndPassword(auth, email, password);
+    const register = await createUserWithEmailAndPassword(auth, email, password);
+    return register;
   } catch (error) {
     if (error.code === 'auth/email-already-in-use') {
       alert('Email is already in use');
@@ -36,12 +46,29 @@ export async function registerUser(auth, email, password) {
     } else if (error.code === 'auth/weak-password') {
       alert('Password is too weak, it should contain at least 6 characters');
     }
+    throw error; // línea lanza la excepción
   }
 }
 
+// agregar display name al registro
+export async function addDisplayName(name) {
+  const auth = getAuth();
+  const user = auth.currentUser;
+  try {
+    await updateProfile(user, { displayName: name });
+    console.log('Nombre de usuario agregado correctamente');
+  } catch (error) {
+    console.log('Error al agregar el nombre del usuario:', error);
+  }
+}
+
+// inicio sesión con email y contraseña
 export async function registerSignIn(auth, email, password) {
   try {
     const credentials = await signInWithEmailAndPassword(auth, email, password);
+    const user = credentials.user;
+    const displayName = user.displayName;
+    alert(`¡Bienvenid@, ${displayName}!`);
     return credentials;
   } catch (error) {
     const errorCode = error.code;
@@ -51,6 +78,7 @@ export async function registerSignIn(auth, email, password) {
   }
 }
 
+// inicio sesión con google
 export async function registerWithGoogle() {
   const provider = new GoogleAuthProvider();
   try {
@@ -59,14 +87,29 @@ export async function registerWithGoogle() {
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(error);
-    return error;
   }
 }
 
+// cerrar sesión
+export async function logOut(auth) {
+  try {
+    const out = await signOut(auth);
+    return out;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// agregar los post al muro
 export async function postBoard(description) {
   try {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    console.log(user.email, 'email del usuario');
     const docRef = await addDoc(collection(db, 'postDescription'), {
       description,
+      email: user.email,
+      userUid: user.uid,
     });
     console.log(docRef);
   } catch (error) {
@@ -74,6 +117,7 @@ export async function postBoard(description) {
   }
 }
 
+// obtiene los datos de los post
 export async function getPosts() {
   try {
     const querySnapshot = await getDocs(collection(db, 'postDescription'));
@@ -83,17 +127,7 @@ export async function getPosts() {
   }
 }
 
-// export function deletePost(id) {
-//   return new Promise((resolve, reject) => {
-//     try {
-//       deleteDoc(doc(db, 'postDescription', id));
-//       resolve();
-//     } catch (error) {
-//       reject(error);
-//     }
-//   });
-// }
-
+// eliminar post
 export async function deletePost(id) {
   try {
     await deleteDoc(doc(db, 'postDescription', id));
@@ -102,24 +136,12 @@ export async function deletePost(id) {
   }
 }
 
-// export const onGetPost = (callback) => onSnapshot(collection(db, 'postDescription'), callback);
-
+// traer los post en tiempo real
 export function onGetPost(callback) {
   onSnapshot(collection(db, 'postDescription'), callback);
 }
 
-export async function editPost() {
-  try {
-    const descriptionRef = doc(db, 'postDescription');
-    console.log(descriptionRef);
-    await updateDoc(descriptionRef, {
-      description: true,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-}
-
+// obtener un post de la colección
 export async function getPost(id) {
   try {
     const getDocPost = await getDoc(doc(db, 'postDescription', id));
@@ -139,10 +161,8 @@ export async function getPost(id) {
 //   }
 // }
 
+// actualizar los post luego de editarlos
 export const updatePost = (id, newFields) => updateDoc(doc(db, 'postDescription', id), newFields);
-
-// const unsub = (callback) => onSnapshot(collection(db, 'postDescription'), callback);
-// console.log(unsub);
 
 // export async function validationEmail() {
 //   try {
