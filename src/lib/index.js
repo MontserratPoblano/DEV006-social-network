@@ -75,7 +75,27 @@ export async function registerSignIn(auth, email, password) {
     const errorMessage = error.message;
     console.log(errorCode);
     console.log(errorMessage);
+    throw error
   }
+
+}
+
+export function registerEmail(email,password){
+  const promesa=signInWithEmailAndPassword(auth, email, password);
+  return promesa.then((credentials)=>{
+    const user = credentials.user;
+    const displayName = user.displayName;
+    console.log(user)
+    return displayName
+  }).catch((error)=>{
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorCode);
+    console.log(errorMessage);
+    throw errorCode
+
+  })
+
 }
 
 // inicio sesión con google
