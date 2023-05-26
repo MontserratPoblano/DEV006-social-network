@@ -69,13 +69,14 @@ export async function registerSignIn(auth, email, password) {
     const user = credentials.user;
     const displayName = user.displayName;
     alert(`¡Bienvenid@, ${displayName}!`);
-    return credentials;
+    console.log('estoy aqui');
   } catch (error) {
     const errorCode = error.code;
     const errorMessage = error.message;
     console.log(errorCode);
     console.log(errorMessage);
     throw error
+
   }
 
 }
