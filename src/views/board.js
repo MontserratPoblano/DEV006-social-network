@@ -25,6 +25,7 @@ function board(navigateTo) {
   const option2 = document.createElement('option');
   const containerImgPost = document.createElement('div');
   const boardPost = document.createElement('div');
+  const notification = document.createElement('div');
 
   buttonReturn.textContent = 'Back';
   buttonLogOut.textContent = 'Log Out';
@@ -48,6 +49,7 @@ function board(navigateTo) {
   containerImgPost.className = 'container-img-post';
   btnSavePost.className = 'btn-save-post';
   post.className = 'post-class';
+  notification.classList.add('notification');
 
   boardPost.id = 'board-post';
   boardMenu.href = '/board';
@@ -186,6 +188,12 @@ function board(navigateTo) {
         const clickYes = container.querySelector('.btn-Yes');
         clickYes.addEventListener('click', () => {
           deletePost(event.target.dataset.id);
+          notification.textContent = 'Message successfully deleted';
+          notification.style.display = 'block';
+          setTimeout(() => {
+            notification.style.display = 'none';
+          }, 2000);
+
           container.removeChild(showingModal);
         });
         const clickNo = container.querySelectorAll('.btn-No, .btn-x');
@@ -200,7 +208,7 @@ function board(navigateTo) {
 
   menu.append(boardMenu, profileMenu);
   container.append(menu, containerImgPost, btnSavePost, sortLabel, sort, boardPost);
-  section.append(buttonReturn, buttonLogOut, container);
+  section.append(buttonReturn, buttonLogOut, container, notification);
 
   return section;
 }
