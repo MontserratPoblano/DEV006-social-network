@@ -32,8 +32,9 @@ export function confirmDeleteModal() {
 }
 
 // dibuja la data en tiempo real
-export function onDrawData(data, doc) {
+export function onDrawData(data, doc,userUid) {
   // todos los elementos que componen el post
+  console.log(data)
   const postDiv = document.createElement('div');
   postDiv.className = 'post-div';
 
@@ -44,6 +45,9 @@ export function onDrawData(data, doc) {
   const paragraph = document.createElement('p');
   paragraph.textContent = data.description;
 
+  if(data.userUid===userUid){
+
+  
   const btnEditBoard = document.createElement('button');
   btnEditBoard.textContent = '🖉';
   btnEditBoard.className = 'btn-editBoard';
@@ -56,7 +60,11 @@ export function onDrawData(data, doc) {
   const divBtnEditDelete = document.createElement('div');
   divBtnEditDelete.classList.add('btn-editdelete');
   divBtnEditDelete.append(btnEditBoard, btnDelete);
-  postDiv.append(divBtnEditDelete, nameUser, paragraph);
+  postDiv.append(divBtnEditDelete)
+  }
+
+  postDiv.append(nameUser, paragraph);
+ 
   // // funcionalidad corazon de los post
   // const containerHeart = document.createElement('div');
   // containerHeart.className = 'container-heart';

@@ -111,22 +111,19 @@ function board(navigateTo) {
   onGetPost((snapshot) => {
     const getPostBoard = document.getElementById('board-post');
     getPostBoard.innerHTML = '';
-
+console.log(auth.currentUser)
     snapshot.forEach((doc) => {
+      const user = auth.currentUser;
       const data = doc.data();
-      const drawingPost = onDrawData(data, doc);
+      const drawingPost = onDrawData(data, doc,user.uid);
       getPostBoard.append(drawingPost);
     });
 
     let data;
     let textAreaEdit;
     let userAreaEdit;
-
-    const btnEditModalList = document.querySelectorAll('.btn-editBoard');
-    const btnDeleteList = document.querySelectorAll('.btn-deletepost');
-
-    // const user = auth.currentUser;
-    // console.log(data.userUid, 'user de board.js');
+    console.log(data)
+    
     // if (user.uid === data.userUid) {
     //   console.log('uids son iguales');
     //   // btnDeleteList.style.display = 'block';
@@ -137,10 +134,17 @@ function board(navigateTo) {
     //   // btnEditModalList.style.display = 'none';
     //   console.log('No tienes permiso para publicar este post');
     // }
+    const btnEditModalList = document.querySelectorAll('.btn-editBoard');
+    const btnDeleteList = document.querySelectorAll('.btn-deletepost');
+    console.log(btnEditModalList)
+    
+    
 
     // opción editar
     btnEditModalList.forEach((btnEdit) => {
+
       btnEdit.addEventListener('click', (event) => {
+        console.log("click")
         const id = event.target.dataset.id;
         const gettingPost = getPost(id);
         console.log(gettingPost, 'getting post');

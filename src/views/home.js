@@ -1,8 +1,8 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable no-unused-vars */
-import { registerSignIn, registerWithGoogle } from '../lib/index.js';
-import { auth } from '../lib/firebase.js';
+import { registerSignIn, registerWithGoogle,registerEmail } from '../lib/index.js';
+
 
 function home(navigateTo) {
   const section = document.createElement('section');
@@ -62,6 +62,7 @@ function home(navigateTo) {
   inputPassword.classList.add('inputPassword');
   inputPassword.className = 'inputPassword';
 
+ 
   const forgotPassword = document.createElement('a');
   forgotPassword.textContent = 'Forgot Password';
   forgotPassword.href = '/forgotPassword';
@@ -122,11 +123,14 @@ function home(navigateTo) {
 
   btnSignIn.addEventListener('click', (e) => {
     e.preventDefault();
-    const signInPromise = registerSignIn(auth, inputEmail.value, inputPassword.value);
-    signInPromise.then(() => {
+    // const signInPromise = registerSignIn(auth, inputEmail.value, inputPassword.value);
+    const signInPromise = registerEmail(inputEmail.value, inputPassword.value);
+    signInPromise.then((respuesta) => {
+      console.log(respuesta)
       navigateTo('/board');
-    }).catch(() => {
-      alert('Failed register, try again');
+    }).catch((error) => {
+      console.log(error)
+      alert(error);
     });
   });
 
