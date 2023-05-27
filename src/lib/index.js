@@ -64,18 +64,18 @@ export async function addDisplayName(name) {
 
 // inicio sesión con email y contraseña
 
-export function registerEmail(email,password){
-  const promesa=signInWithEmailAndPassword(auth, email, password);
-  return promesa.then((credentials)=>{
+export function logIn(email, password) {
+  const promise = signInWithEmailAndPassword(auth, email, password);
+  return promise.then((credentials) => {
     const user = credentials.user;
     const displayName = user.displayName;
-    console.log(user)
-    return displayName
-  }).catch((error)=>{
+    return displayName;
+  }).catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
     console.log(errorCode);
     console.log(errorMessage);
+
     throw errorCode
 
   })
@@ -156,7 +156,6 @@ export async function getPost(id) {
     console.log(error);
   }
 }
-
 
 
 // actualizar los post luego de editarlos

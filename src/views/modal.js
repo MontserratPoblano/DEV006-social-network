@@ -32,9 +32,9 @@ export function confirmDeleteModal() {
 }
 
 // dibuja la data en tiempo real
-export function onDrawData(data, doc,userUid) {
+export function onDrawData(data, doc, userUid) {
   // todos los elementos que componen el post
-  console.log(data)
+  console.log(data);
   const postDiv = document.createElement('div');
   postDiv.className = 'post-div';
 
@@ -46,8 +46,6 @@ export function onDrawData(data, doc,userUid) {
   paragraph.textContent = data.description;
 
   if(data.userUid===userUid){
-
-  
   const btnEditBoard = document.createElement('button');
   btnEditBoard.textContent = '🖉';
   btnEditBoard.className = 'btn-editBoard';

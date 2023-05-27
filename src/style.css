@@ -627,11 +627,13 @@ body {
 
 }
 .fa-star{
+  color:#00bed3;
   margin-right: 5%;
   color: #00bed3;
 
 }
-.counter-star {
+
+.counter-star{
   margin-right: 2%;
 }
 
