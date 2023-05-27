@@ -1,8 +1,7 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable no-unused-vars */
-import { registerSignIn, registerWithGoogle,registerEmail } from '../lib/index.js';
-
+import { registerWithGoogle, logIn } from '../lib/index.js';
 
 function home(navigateTo) {
   const section = document.createElement('section');
@@ -61,7 +60,6 @@ function home(navigateTo) {
   inputPassword.id = 'password-home';
   inputPassword.classList.add('inputPassword');
   inputPassword.className = 'inputPassword';
-
  
   const forgotPassword = document.createElement('a');
   forgotPassword.textContent = 'Forgot Password';
@@ -123,13 +121,12 @@ function home(navigateTo) {
 
   btnSignIn.addEventListener('click', (e) => {
     e.preventDefault();
-    // const signInPromise = registerSignIn(auth, inputEmail.value, inputPassword.value);
-    const signInPromise = registerEmail(inputEmail.value, inputPassword.value);
-    signInPromise.then((respuesta) => {
-      console.log(respuesta)
+    const signInPromise = logIn(inputEmail.value, inputPassword.value);
+    signInPromise.then((user) => {
+      alert(`Welcome ${user}`);
       navigateTo('/board');
     }).catch((error) => {
-      console.log(error)
+      console.log(error);
       alert(error);
     });
   });

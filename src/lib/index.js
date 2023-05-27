@@ -63,40 +63,19 @@ export async function addDisplayName(name) {
 }
 
 // inicio sesión con email y contraseña
-export async function registerSignIn(auth, email, password) {
-  try {
-    const credentials = await signInWithEmailAndPassword(auth, email, password);
+export function logIn(email, password) {
+  const promise = signInWithEmailAndPassword(auth, email, password);
+  return promise.then((credentials) => {
     const user = credentials.user;
     const displayName = user.displayName;
-    alert(`¡Bienvenid@, ${displayName}!`);
-    console.log('estoy aqui');
-  } catch (error) {
+    return displayName;
+  }).catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
     console.log(errorCode);
     console.log(errorMessage);
-    throw error
-
-  }
-
-}
-
-export function registerEmail(email,password){
-  const promesa=signInWithEmailAndPassword(auth, email, password);
-  return promesa.then((credentials)=>{
-    const user = credentials.user;
-    const displayName = user.displayName;
-    console.log(user)
-    return displayName
-  }).catch((error)=>{
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorCode);
-    console.log(errorMessage);
-    throw errorCode
-
-  })
-
+    throw errorCode;
+  });
 }
 
 // inicio sesión con google
@@ -171,16 +150,6 @@ export async function getPost(id) {
     console.log(error);
   }
 }
-
-// *****PREGUNTAR EN OH LA DIFERENCIA DE ESTA FUNCION CON LA LINEA 142*****
-// export async function updatePost(id, newFields) {
-//   try {
-//     const updateDocPost = await updateDoc(doc(db, 'posDescription', id), newFields);
-//     return updateDocPost;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
 
 // actualizar los post luego de editarlos
 export const updatePost = (id, newFields) => updateDoc(doc(db, 'postDescription', id), newFields);
