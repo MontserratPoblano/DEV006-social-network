@@ -45,33 +45,40 @@ export function onDrawData(data, doc, userUid) {
   const paragraph = document.createElement('p');
   paragraph.textContent = data.description;
 
-  if (data.userUid === userUid) {
-    const btnEditBoard = document.createElement('button');
-    btnEditBoard.textContent = '🖉';
-    btnEditBoard.className = 'btn-editBoard';
-    btnEditBoard.dataset.id = doc.id;
+  if(data.userUid===userUid){
+  const btnEditBoard = document.createElement('button');
+  btnEditBoard.textContent = '🖉';
+  btnEditBoard.className = 'btn-editBoard';
+  btnEditBoard.dataset.id = doc.id;
 
-    const btnDelete = document.createElement('button');
-    btnDelete.textContent = '🗑';
-    btnDelete.dataset.id = doc.id;
-    btnDelete.classList.add('btn-deletepost');
-    const divBtnEditDelete = document.createElement('div');
-    divBtnEditDelete.classList.add('btn-editdelete');
-    divBtnEditDelete.append(btnEditBoard, btnDelete);
-    postDiv.append(divBtnEditDelete);
+  const btnDelete = document.createElement('button');
+  btnDelete.textContent = '🗑';
+  btnDelete.dataset.id = doc.id;
+  btnDelete.classList.add('btn-deletepost');
+  const divBtnEditDelete = document.createElement('div');
+  divBtnEditDelete.classList.add('btn-editdelete')
+  divBtnEditDelete.append(btnEditBoard, btnDelete);
+  postDiv.append(divBtnEditDelete)
   }
-  // estrella de los post
+
+  
+
+   
   const containerStar = document.createElement('div');
-  containerStar.className = 'container-heart';
-  const btnStar = document.createElement('i');
+  containerStar.className = 'container-star';
+  const btnStar= document.createElement('i');
   btnStar.className = 'fa-solid fa-star';
+  btnStar.id=doc.id
+  const counterStar = document.createElement('span');
+  counterStar.className = 'counter-star';
+  counterStar.textContent=data.likes;
+  containerStar.append(btnStar, counterStar);
 
-  // contador de corazones
-  const counterStars = document.createElement('span');
-  counterStars.className = 'counter-hearts';
-  containerStar.append(btnStar, counterStars);
-  postDiv.append(containerStar, nameUser, paragraph);
+  postDiv.append(nameUser, paragraph,containerStar);
 
+ 
+  
+  
   return postDiv;
 }
 

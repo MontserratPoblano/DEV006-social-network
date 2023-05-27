@@ -1,6 +1,7 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable no-unused-vars */
+
 import { registerWithGoogle, logIn } from '../lib/index.js';
 
 function home(navigateTo) {
@@ -121,6 +122,7 @@ function home(navigateTo) {
 
   btnSignIn.addEventListener('click', (e) => {
     e.preventDefault();
+
     const signInPromise = logIn(inputEmail.value, inputPassword.value);
     signInPromise.then((user) => {
       alert(`Welcome ${user}`);
