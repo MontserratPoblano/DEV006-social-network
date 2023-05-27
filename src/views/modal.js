@@ -58,24 +58,29 @@ export function onDrawData(data, doc,userUid) {
   btnDelete.dataset.id = doc.id;
   btnDelete.classList.add('btn-deletepost');
   const divBtnEditDelete = document.createElement('div');
-  divBtnEditDelete.classList.add('btn-editdelete');
+  divBtnEditDelete.classList.add('btn-editdelete')
   divBtnEditDelete.append(btnEditBoard, btnDelete);
   postDiv.append(divBtnEditDelete)
   }
 
-  postDiv.append(nameUser, paragraph);
+  
+
+   
+  const containerStar = document.createElement('div');
+  containerStar.className = 'container-star';
+  const btnStar= document.createElement('i');
+  btnStar.className = 'fa-solid fa-star';
+  btnStar.id=doc.id
+  const counterStar = document.createElement('span');
+  counterStar.className = 'counter-star';
+  counterStar.textContent=data.likes;
+  containerStar.append(btnStar, counterStar);
+
+  postDiv.append(nameUser, paragraph,containerStar);
+
  
-  // // funcionalidad corazon de los post
-  // const containerHeart = document.createElement('div');
-  // containerHeart.className = 'container-heart';
-  // const btnHeart = document.createElement('i');
-  // btnHeart.className = 'fa-solid fa-heart';
-
-  // // contador de corazones
-  // const counterHearts = document.createElement('span');
-  // counterHearts.className = 'counter-hearts';
-  // containerHeart.append(btnHeart, counterHearts);
-
+  
+  
   return postDiv;
 }
 

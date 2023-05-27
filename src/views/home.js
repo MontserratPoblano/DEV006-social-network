@@ -1,7 +1,7 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable no-unused-vars */
-import { registerSignIn, registerWithGoogle,registerEmail } from '../lib/index.js';
+import { registerWithGoogle, registerEmail } from '../lib/index.js';
 
 
 function home(navigateTo) {
@@ -123,7 +123,6 @@ function home(navigateTo) {
 
   btnSignIn.addEventListener('click', (e) => {
     e.preventDefault();
-    // const signInPromise = registerSignIn(auth, inputEmail.value, inputPassword.value);
     const signInPromise = registerEmail(inputEmail.value, inputPassword.value);
     signInPromise.then((respuesta) => {
       console.log(respuesta)

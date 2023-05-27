@@ -4,9 +4,11 @@
 
 import { confirmDeleteModal, onDrawData, createPostModal } from './modal.js';
 import {
-  postBoard, onGetPost, deletePost, getPost, updatePost, logOut,
+  postBoard, onGetPost, deletePost, getPost,logOut, updateAll
 } from '../lib/index.js';
-import { auth } from '../lib/firebase.js';
+import { auth} from '../lib/firebase.js';
+import { connectFirestoreEmulator, doc } from '@firebase/firestore';
+
 
 function board(navigateTo) {
   const buttonReturn = document.createElement('button');
@@ -108,10 +110,11 @@ function board(navigateTo) {
     }
   });
 
+
+
   onGetPost((snapshot) => {
     const getPostBoard = document.getElementById('board-post');
     getPostBoard.innerHTML = '';
-console.log(auth.currentUser)
     snapshot.forEach((doc) => {
       const user = auth.currentUser;
       const data = doc.data();
@@ -121,33 +124,51 @@ console.log(auth.currentUser)
 
     let data;
     let textAreaEdit;
-    let userAreaEdit;
-    console.log(data)
+   
     
-    // if (user.uid === data.userUid) {
-    //   console.log('uids son iguales');
-    //   // btnDeleteList.style.display = 'block';
-    //   // btnEditModalList.style.display = 'block';
-    // } else {
-    //   console.log('uids no son iguales');
-    //   // btnDeleteList.style.display = 'none';
-    //   // btnEditModalList.style.display = 'none';
-    //   console.log('No tienes permiso para publicar este post');
-    // }
+    
     const btnEditModalList = document.querySelectorAll('.btn-editBoard');
     const btnDeleteList = document.querySelectorAll('.btn-deletepost');
-    console.log(btnEditModalList)
+    const btnStarBoard=document.querySelectorAll('.fa-solid,fa-star');
+    console.log(btnStarBoard)
+
+
+     btnStarBoard.forEach((btn)=>{
+      btn.addEventListener("click",(e)=>{
+        const id=e.target.id
+        const gettingDoc= getPost(id)
+
+        gettingDoc.then((doc)=>{
+          console.log(gettingDoc)
+          if(doc){
+            console.log(doc, "doc exists ")
+
+              const currentLikes = doc.data().likes;
+              console.log(currentLikes, 'current likes probando');
+              const newLikes = currentLikes + 1;
+              return updateAll(id,{ likes: newLikes })
+              console.log("hola haciedo pruebas sin saber porque")
+          
+        }
+
+        })
+      })
+    })
+     
+
+        
     
+    
+      
     
 
     // opción editar
     btnEditModalList.forEach((btnEdit) => {
 
       btnEdit.addEventListener('click', (event) => {
-        console.log("click")
+       
         const id = event.target.dataset.id;
         const gettingPost = getPost(id);
-        console.log(gettingPost, 'getting post');
         gettingPost.then((doc) => {
           data = doc.data();
           textAreaEdit = document.querySelector('.content-edit-modal');
@@ -157,14 +178,14 @@ console.log(auth.currentUser)
           console.log(textAreaEdit.value);
           // console.log(data);
         });
-
+       
         // edit del modal
         const showingModalEdit = createPostModal(data);
         showingModalEdit.classList.add('show');
         container.appendChild(showingModalEdit);
         const postEdit = container.querySelector('.btn-editpost');
         postEdit.addEventListener('click', () => {
-          const updatingPost = updatePost(id, { description: textAreaEdit.value });
+          const updatingPost = updateAll(id, { description: textAreaEdit.value });
           console.log(updatingPost);
           updatingPost.then(() => {
             alert('Message successfully updated!');
@@ -208,6 +229,7 @@ console.log(auth.currentUser)
         });
       });
     });
+    
   });
 
   menu.append(boardMenu, profileMenu);

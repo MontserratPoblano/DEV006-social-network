@@ -63,23 +63,6 @@ export async function addDisplayName(name) {
 }
 
 // inicio sesión con email y contraseña
-export async function registerSignIn(auth, email, password) {
-  try {
-    const credentials = await signInWithEmailAndPassword(auth, email, password);
-    const user = credentials.user;
-    const displayName = user.displayName;
-    alert(`¡Bienvenid@, ${displayName}!`);
-    console.log('estoy aqui');
-  } catch (error) {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorCode);
-    console.log(errorMessage);
-    throw error
-
-  }
-
-}
 
 export function registerEmail(email,password){
   const promesa=signInWithEmailAndPassword(auth, email, password);
@@ -131,6 +114,7 @@ export async function postBoard(description) {
       description,
       email: user.email,
       userUid: user.uid,
+      likes:0,
     });
     console.log(docRef);
   } catch (error) {
@@ -148,6 +132,7 @@ export async function getPosts() {
   }
 }
 
+
 // eliminar post
 export async function deletePost(id) {
   try {
@@ -162,7 +147,7 @@ export function onGetPost(callback) {
   onSnapshot(collection(db, 'postDescription'), callback);
 }
 
-// obtener un post de la colección
+//obtener un post de la colección
 export async function getPost(id) {
   try {
     const getDocPost = await getDoc(doc(db, 'postDescription', id));
@@ -172,18 +157,12 @@ export async function getPost(id) {
   }
 }
 
-// *****PREGUNTAR EN OH LA DIFERENCIA DE ESTA FUNCION CON LA LINEA 142*****
-// export async function updatePost(id, newFields) {
-//   try {
-//     const updateDocPost = await updateDoc(doc(db, 'posDescription', id), newFields);
-//     return updateDocPost;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
+
 
 // actualizar los post luego de editarlos
-export const updatePost = (id, newFields) => updateDoc(doc(db, 'postDescription', id), newFields);
+export const updateAll = (id, newFields) => updateDoc(doc(db, 'postDescription', id), newFields);
+
+
 
 // export async function validationEmail() {
 //   try {
