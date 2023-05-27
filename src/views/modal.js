@@ -32,9 +32,9 @@ export function confirmDeleteModal() {
 }
 
 // dibuja la data en tiempo real
-export function onDrawData(data, doc,userUid) {
+export function onDrawData(data, doc, userUid) {
   // todos los elementos que componen el post
-  console.log(data)
+  console.log(data);
   const postDiv = document.createElement('div');
   postDiv.className = 'post-div';
 
@@ -45,36 +45,32 @@ export function onDrawData(data, doc,userUid) {
   const paragraph = document.createElement('p');
   paragraph.textContent = data.description;
 
-  if(data.userUid===userUid){
+  if (data.userUid === userUid) {
+    const btnEditBoard = document.createElement('button');
+    btnEditBoard.textContent = '🖉';
+    btnEditBoard.className = 'btn-editBoard';
+    btnEditBoard.dataset.id = doc.id;
 
-  
-  const btnEditBoard = document.createElement('button');
-  btnEditBoard.textContent = '🖉';
-  btnEditBoard.className = 'btn-editBoard';
-  btnEditBoard.dataset.id = doc.id;
-
-  const btnDelete = document.createElement('button');
-  btnDelete.textContent = '🗑';
-  btnDelete.dataset.id = doc.id;
-  btnDelete.classList.add('btn-deletepost');
-  const divBtnEditDelete = document.createElement('div');
-  divBtnEditDelete.classList.add('btn-editdelete');
-  divBtnEditDelete.append(btnEditBoard, btnDelete);
-  postDiv.append(divBtnEditDelete)
+    const btnDelete = document.createElement('button');
+    btnDelete.textContent = '🗑';
+    btnDelete.dataset.id = doc.id;
+    btnDelete.classList.add('btn-deletepost');
+    const divBtnEditDelete = document.createElement('div');
+    divBtnEditDelete.classList.add('btn-editdelete');
+    divBtnEditDelete.append(btnEditBoard, btnDelete);
+    postDiv.append(divBtnEditDelete);
   }
+  // estrella de los post
+  const containerStar = document.createElement('div');
+  containerStar.className = 'container-heart';
+  const btnStar = document.createElement('i');
+  btnStar.className = 'fa-solid fa-star';
 
-  postDiv.append(nameUser, paragraph);
- 
-  // // funcionalidad corazon de los post
-  // const containerHeart = document.createElement('div');
-  // containerHeart.className = 'container-heart';
-  // const btnHeart = document.createElement('i');
-  // btnHeart.className = 'fa-solid fa-heart';
-
-  // // contador de corazones
-  // const counterHearts = document.createElement('span');
-  // counterHearts.className = 'counter-hearts';
-  // containerHeart.append(btnHeart, counterHearts);
+  // contador de corazones
+  const counterStars = document.createElement('span');
+  counterStars.className = 'counter-hearts';
+  containerStar.append(btnStar, counterStars);
+  postDiv.append(containerStar, nameUser, paragraph);
 
   return postDiv;
 }
