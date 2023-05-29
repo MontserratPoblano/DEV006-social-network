@@ -199,6 +199,20 @@ body {
   margin-top:0%;
 }
 
+  .messageError-home{
+  height: 10%;
+  width: 80%;
+  margin: 1% 12%;
+}
+
+.message-welcome{
+  height: 5%;
+  width: 80%;
+  margin: 1% 12%;
+  border: 1px solid black;
+  margin:1% auto
+}
+
 
 /* Profile */
 .container-profile {
@@ -735,10 +749,7 @@ margin-bottom: 1%;
     margin-top: -18%;
     width: 12%;
     height: 20vw;
-  
-
-  
-  }
+ 
 
   #text {
     background-color: blue;
@@ -812,3 +823,4 @@ margin-bottom: 1%;
     border-radius: 20px;
   }
 }
+
