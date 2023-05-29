@@ -21,7 +21,7 @@ function home(navigateTo) {
 
   const imageBuilding = document.createElement('img');
   imageBuilding.src = ('./images/building.png');
-  imageBuilding.classList.add('app-img');
+  imageBuilding.id = 'app-img';
 
   const description = document.createElement('p');
   description.textContent = 'Platform for the neighbors of a community where they can sell, give away, buy whatever they deem convenient';
@@ -88,7 +88,7 @@ function home(navigateTo) {
 
   const textBeforeSignUp = document.createElement('span');
   textBeforeSignUp.textContent = 'Don\'t have an account? ';
-  textBeforeSignUp.className = 'text';
+  textBeforeSignUp.id = 'text';
 
   const signUp = document.createElement('button');
   signUp.textContent = 'Sign Up';

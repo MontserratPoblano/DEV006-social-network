@@ -76,10 +76,8 @@ export function logIn(email, password) {
     console.log(errorCode);
     console.log(errorMessage);
 
-    throw errorCode
-
-  })
-
+    throw errorCode;
+  });
 }
 
 // inicio sesión con google
@@ -114,7 +112,7 @@ export async function postBoard(description) {
       description,
       email: user.email,
       userUid: user.uid,
-      likes:0,
+      likes: [],
     });
     console.log(docRef);
   } catch (error) {
@@ -132,7 +130,6 @@ export async function getPosts() {
   }
 }
 
-
 // eliminar post
 export async function deletePost(id) {
   try {
@@ -147,7 +144,7 @@ export function onGetPost(callback) {
   onSnapshot(collection(db, 'postDescription'), callback);
 }
 
-//obtener un post de la colección
+// obtener un post de la colección
 export async function getPost(id) {
   try {
     const getDocPost = await getDoc(doc(db, 'postDescription', id));
@@ -157,11 +154,8 @@ export async function getPost(id) {
   }
 }
 
-
 // actualizar los post luego de editarlos
 export const updateAll = (id, newFields) => updateDoc(doc(db, 'postDescription', id), newFields);
-
-
 
 // export async function validationEmail() {
 //   try {

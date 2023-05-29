@@ -6,6 +6,8 @@
 
 }
 
+/* Mobile */
+@media screen and (min-width: 375px) { 
 .container-app, .container-formSignUp, .formSetting-Profile {
   height: 190vw;
   margin: 2% auto;
@@ -48,7 +50,7 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-.app-img {
+#app-img {
   width: 50%;
   height: 50%;
   align-self: center;
@@ -155,7 +157,7 @@ body {
   margin-top: 10%;
 }
 
-.buttonReturn, .btn-logout {
+#buttonReturn, #btn-logout {
   color: #00bed3;
   font-size: 20px;
   margin-left: 2%;
@@ -166,7 +168,7 @@ body {
   margin-bottom: 0;
 }
 
-.btn-logout {
+#btn-logout {
   margin-left: 50%;
 }
 
@@ -183,7 +185,7 @@ body {
   
 }
 
-.text {
+#text {
   position: fixed;
   bottom: 12%;
   left: 5%;
@@ -191,17 +193,26 @@ body {
   font-size: 16px;
   text-align: center;
 }
+
 .btnForgotP{
   margin-left: 60%;
   margin-top:0%;
 }
 
-/* .btnSignUp{
-  position: absolute;
-  left: 75%;
-  top: 88%;
-  text-decoration: none;
-} */
+  .messageError-home{
+  height: 10%;
+  width: 80%;
+  margin: 1% 12%;
+}
+
+.message-welcome{
+  height: 5%;
+  width: 80%;
+  margin: 1% 12%;
+  border: 1px solid black;
+  margin:1% auto
+}
+
 
 /* Profile */
 .container-profile {
@@ -296,7 +307,7 @@ body {
 
 /* Board view */
 
-.container-app-board {
+#container-app-board {
   height: 190vw;
   margin: 2% auto;
   width: 90%;
@@ -308,7 +319,7 @@ body {
 
 }
 
-.menu-class {
+#menu-id {
   text-align: center;
   padding-top: 20px;
 }
@@ -319,8 +330,8 @@ body {
   margin-bottom: 10%;
 }
 
-.menu-top-board,
-.menu-top-profile {
+#menu-top-board,
+#menu-top-profile {
   margin-right: 8%;
   color: #00808D;
   text-decoration: none;
@@ -331,19 +342,19 @@ body {
 
 }
 
-.menu-top-profile {
+#menu-top-profile {
   font-weight: 100;
   color: #36413E;
 }
 
 .post-img,
-.imageProfile {
+#imageProfile {
   width: 55px;
   height: 50px;
   margin: 0;
 }
 
-.post-class {
+#post-id {
   background: #D9D9D9;
   border-radius: 8px;
   font-style: normal;
@@ -356,7 +367,11 @@ body {
   line-height: 150%;
 }
 
-.sort-class .sortLabel-class {
+#post-id-error {
+  background-color: red;
+}
+
+#sort-class #sortLabel-class {
   display: flex;
   flex-direction: column;
   align-self: flex-end;
@@ -370,7 +385,7 @@ body {
   font-size: 10px;
 }
 
- .container-img-post {
+ #container-img-post {
   margin: 10%;
   margin-bottom: 2%;
   display: flex;
@@ -400,7 +415,7 @@ body {
   
 }
 
-.btn-save-post {
+#btn-save-post {
   display: block;
   width: 20%;
   border-radius: 10px;
@@ -495,19 +510,20 @@ body {
   border: 2px #00bed3 solid;
 }
 
-.notification {
+#notification {
     position: fixed;
-    top: 65%;
+    top: 50%;
     right: 50%;
     left: 30%;
     transform: translate(-25%, -30%);
     background-color: white;
     border: 2px #00bed3 solid;
     padding: 10px;
-    display: none; 
+    display: none;
     width: 80%;
     height: 8%;
     text-align: center;
+    font-size: 20px;
 }
 
 .message-delete {
@@ -592,12 +608,12 @@ body {
   
 }
 .name-user {
-  display:inline-block;
+
   text-align: start;
   font-size: 16px;
-  margin-top:5%;
+  font-weight: bold;
   margin-bottom: 0px;
-  padding-bottom: 0%;
+
 }
 
 .btn-editdelete {
@@ -610,7 +626,7 @@ body {
 
  .btn-editBoard, .btn-deletepost {
   margin: 3%;
-  height: 30%;
+  height: 20%;
   border: none;
   background-color:  #D9D9D9;
   font-size: x-large;
@@ -619,24 +635,19 @@ body {
 
 
 .container-star {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 0%;
+margin: 4%;
+margin-bottom: 1%;
 
 }
 .fa-star{
   color:#00bed3;
-  margin-right: 5%;
-  color: #00bed3;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  margin-right: 1%;
 
 }
-
-.counter-star{
-  margin-right: 2%;
+.fa-star:hover {
+  color: black;
 }
-
 /* Modal Edit Post */
 
 .dad-container {
@@ -718,18 +729,98 @@ body {
   padding: 4%;
   
 }
-
-.messageError-home{
-  height: 10%;
-  width: 80%;
-  margin: 1% 12%;
 }
+/* pantalla home */
+@media screen and (min-width: 768px) {
 
-.message-welcome{
-  height: 5%;
-  width: 80%;
-  margin: 1% 12%;
-  border: 1px solid black;
-  margin:1% auto
+  .container-app {
+    height: 30vw;
+    margin: 2% auto;
+    width: 50%;
+    border-radius: 30px;
+    display: flex;
+    flex-wrap: nowrap;
+    border: 4px solid #00808D;
+  }
+
+  #app-img {
+    align-self: flex-start;
+    margin-left: 25%;
+    margin-top: -18%;
+    width: 12%;
+    height: 20vw;
+ 
+
+  #text {
+    background-color: blue;
+    color: white;
+    bottom: 12%;
+    left: 5%;
+    right: 5%;
+    font-size: 16px;
+    text-align: center;
+    font-size: 12px;
+  }
+  .form-home{
+    width: 100%;
+    height: 100%;
+    margin-left: 10%;
+  
+
+  }
+  .homePage {
+  width: 100%;
+  }
+
+  .title {
+    font-size: 35px;
+    width: 30%;
+    height: 15vw;
+    align-self:  center;
+    white-space: nowrap;
+    }
+
+  #container-inputs{
+
+    width: 80%;
+    height: 40vw;
+
+  }
+
+
+  .input-email, .inputPassword{
+    width: 60%;
+    height: 3vw;
+  }
+
+  .btnGoogle {
+    width: 10%;
+    left: 55%;
+    bottom: 8%;
+  
+  }
+  .btnSignIn {
+    height: 1.9vw;
+    width: 15%;
+    margin-left: 25%;
+  }
+  .description-app {
+    width: 80%;
+    height: 30%;
+    align-self: center;
+  }
+
+ 
+
+  .btnSignUp {
+  margin-bottom: 60%;
+  margin-top: 10%;
+ 
+    height: 2vw;
+    background-color: #B4D7EA;
+    border: 4px solid #00808D;
+    color: black;
+    border-radius: 20px;
+  }
 }
 
