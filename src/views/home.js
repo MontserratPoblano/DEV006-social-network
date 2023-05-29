@@ -62,6 +62,14 @@ function home(navigateTo) {
   inputPassword.classList.add('inputPassword');
   inputPassword.className = 'inputPassword';
  
+  const  messageErrorHome=document.createElement("p");
+  messageErrorHome.className="messageError-home";
+
+  const notificationHome = document.createElement('div');
+  notificationHome.classList.add('notification');
+
+  
+ 
   const forgotPassword = document.createElement('a');
   forgotPassword.textContent = 'Forgot Password';
   forgotPassword.href = '/forgotPassword';
@@ -96,6 +104,7 @@ function home(navigateTo) {
     inputEmail,
     labelPasswordHome,
     inputPassword,
+    messageErrorHome,
     forgotPassword,
     btnSignIn,
     btnGoogle,
@@ -125,11 +134,48 @@ function home(navigateTo) {
 
     const signInPromise = logIn(inputEmail.value, inputPassword.value);
     signInPromise.then((user) => {
-      alert(`Welcome ${user}`);
-      navigateTo('/board');
+      console.log(user)
+      notificationHome.style.display = 'block';
+      notificationHome.textContent = 'Welcome ' + user; 
+          setTimeout(() => {
+            notificationHome.style.display = 'none';
+            navigateTo('/board');
+          }, 2000);
     }).catch((error) => {
       console.log(error);
-      alert(error);
+      if(error==="auth/wrong-password"){
+        messageErrorHome.textContent="Wrong password..."
+        messageErrorHome.style.visibility="visible";
+        inputPassword.setAttribute("style","background-color:#FF5A5F;");
+        setTimeout(()=>{
+          messageErrorHome.style.visibility="hidden";
+          inputPassword.removeAttribute("style");
+        },2000);
+      }
+      else if(error==="auth/user-not-found"){
+        messageErrorHome.textContent="User not found..."
+        messageErrorHome.style.visibility="visible";
+        inputEmail.setAttribute("style","background-color:#FF5A5F;");
+        inputPassword.setAttribute("style","background-color:#FF5A5F;");
+
+        setTimeout(()=>{
+          messageErrorHome.style.visibility="hidden";
+          inputEmail.removeAttribute("style");
+          inputPassword.removeAttribute("style");
+        },2000);
+      }
+      else if(error==="auth/invalid-email"){
+        messageErrorHome.textContent="Invalid email..."
+        messageErrorHome.style.visibility="visible";
+        inputEmail.setAttribute("style","background-color:#FF5A5F;");
+        setTimeout(()=>{
+          messageErrorHome.style.visibility="hidden";
+          inputEmail.removeAttribute("style");
+          inputPassword.removeAttribute("style");
+        },2000);
+      }
+     
+      //alert(error);
     });
   });
 
@@ -138,6 +184,7 @@ function home(navigateTo) {
     imageBuilding,
     description,
     formHome,
+    notificationHome,
   );
   section.append(textHome, container);
   return section;

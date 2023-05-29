@@ -719,3 +719,17 @@ body {
   
 }
 
+.messageError-home{
+  height: 10%;
+  width: 80%;
+  margin: 1% 12%;
+}
+
+.message-welcome{
+  height: 5%;
+  width: 80%;
+  margin: 1% 12%;
+  border: 1px solid black;
+  margin:1% auto
+}
+
