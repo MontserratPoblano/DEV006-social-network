@@ -6,111 +6,80 @@ import { registerWithGoogle, logIn } from '../lib/index.js';
 
 function home(navigateTo) {
   const section = document.createElement('section');
-
-  const textHome = document.createElement('h1');
-  textHome.textContent = 'Home page';
-  textHome.classList.add('homePage');
-
   const title = document.createElement('h2');
-  title.textContent = 'Community of Buildings';
-  title.className = 'title';
-
-  const container = document.createElement('div');
-  container.className = 'container-app';
-  container.id = 'container-inputs';
-
-  const imageBuilding = document.createElement('img');
-  imageBuilding.src = ('./images/building.png');
-  imageBuilding.id = 'app-img';
-
   const description = document.createElement('p');
-  description.textContent = 'Platform for the neighbors of a community where they can sell, give away, buy whatever they deem convenient';
-  description.className = 'description-app';
-
+  const container = document.createElement('div');
   const formHome = document.createElement('form');
-  formHome.className = 'form-home';
   const labelEmailHome = document.createElement('label');
-  labelEmailHome.textContent = 'Email';
-  labelEmailHome.htmlFor = 'email-home';
-  labelEmailHome.className = 'name-email';
-  // const email = document.createElement('p');
-  // email.textContent = 'Email';
-  // email.className = 'name-email';
   const inputEmail = document.createElement('input');
-  inputEmail.type = 'email';
-  inputEmail.placeholder = 'Enter email';
-  inputEmail.required = 'true';
-  inputEmail.autocomplete = 'on';
-  inputEmail.id = 'email-home';
-  inputEmail.className = 'input-email';
-
-  // const password = document.createElement('p');
-  // password.textContent = 'Password';
-  // password.className = 'name-password';
-
+  const imageBuilding = document.createElement('img');
+  const messageErrorHome = document.createElement('p');
   const labelPasswordHome = document.createElement('label');
-  labelPasswordHome.textContent = 'Password';
-  labelPasswordHome.htmlFor = 'password-home';
-  labelPasswordHome.className = 'name-password';
-
   const inputPassword = document.createElement('input');
-  inputPassword.type = 'password';
-  inputPassword.placeholder = 'Enter password';
-  inputPassword.required = 'true';
-  inputPassword.autocomplete = 'on';
-  inputPassword.id = 'password-home';
-  inputPassword.classList.add('inputPassword');
-  inputPassword.className = 'inputPassword';
- 
-  const  messageErrorHome=document.createElement("p");
-  messageErrorHome.className="messageError-home";
-
   const notificationHome = document.createElement('div');
-  notificationHome.classList.add('notification');
-
-  
- 
   const forgotPassword = document.createElement('a');
-  forgotPassword.textContent = 'Forgot Password';
+  const btnLogIn = document.createElement('button');
+  const textBeforeSignUp = document.createElement('span');
+  const signUp = document.createElement('button');
+  const btnGoogle = document.createElement('img');
+
+  title.textContent = 'Community of Buildings';
+  description.textContent = 'Platform for the neighbors of a community where they can sell, give away, buy whatever they deem convenient';
+  labelEmailHome.textContent = 'Email';
+  labelPasswordHome.textContent = 'Password';
+  forgotPassword.textContent = 'Forgot Password?';
+  textBeforeSignUp.textContent = 'Don\'t have an account? ';
+  btnLogIn.textContent = 'Log In';
+  signUp.textContent = 'Sign Up';
+  
+  title.id = 'title';
+  description.id = 'description-app';
+  imageBuilding.id = 'app-img';
+  formHome.id = 'form-home';
+  labelEmailHome.id = 'name-email';
+  labelPasswordHome.id = 'name-password';
+  inputEmail.id = 'input-email';
+  inputPassword.id = 'input-password';
+  btnLogIn.id = 'btnLogIn';
+  signUp.id = 'btnSignUp';
+  btnGoogle.id = 'btnGoogle';
+  textBeforeSignUp.id = 'text';
+  forgotPassword.id = 'btnForgotP';
+  messageErrorHome.id = 'messageError-home';
+  notificationHome.id = 'notification';
+ 
+  container.className = 'container-app';
+ 
+  imageBuilding.src = ('./images/building.png');
+  btnGoogle.src = ('./images/btn_google_signin_dark_focus_web.png');
+  
+  signUp.href = '/signup';
   forgotPassword.href = '/forgotPassword';
-  forgotPassword.classList.add('btnForgotP');
+
+  btnLogIn.type = 'submit';
+  inputPassword.type = 'password';
+  inputEmail.type = 'email';
+
+  labelPasswordHome.htmlFor = 'password-home';
+  labelEmailHome.htmlFor = 'email-home';
+
+  inputEmail.placeholder = 'Enter email';
+  inputPassword.placeholder = 'Enter password';
+
+  inputEmail.required = 'true';
+  inputPassword.required = 'true';
+  
+  inputEmail.autocomplete = 'on';
+  inputPassword.autocomplete = 'on';
+
   forgotPassword.addEventListener('click', () => {
     navigateTo('/forgotPassword');
   });
 
-  const btnSignIn = document.createElement('button');
-  btnSignIn.textContent = 'Log In';
-  btnSignIn.type = 'submit';
-  btnSignIn.classList.add('btnSignIn');
-  // btnSignIn.addEventListener('click', () => {
-  //   navigateTo('/profile');
-  // });
-
-  const textBeforeSignUp = document.createElement('span');
-  textBeforeSignUp.textContent = 'Don\'t have an account? ';
-  textBeforeSignUp.id = 'text';
-
-  const signUp = document.createElement('button');
-  signUp.textContent = 'Sign Up';
-  signUp.href = '/signup';
-  signUp.classList.add('btnSignUp');
-
-  const btnGoogle = document.createElement('img');
-  btnGoogle.classList.add('btnGoogle');
-  btnGoogle.src = ('./images/btn_google_signin_dark_focus_web.png');
-
-  formHome.append(
-    labelEmailHome,
-    inputEmail,
-    labelPasswordHome,
-    inputPassword,
-    messageErrorHome,
-    forgotPassword,
-    btnSignIn,
-    btnGoogle,
-    textBeforeSignUp,
-    signUp,
-  );
+  signUp.addEventListener('click', (e) => {
+    e.preventDefault();
+    navigateTo('/signup');
+  });
 
   btnGoogle.addEventListener('click', () => {
     const resultPromise = registerWithGoogle();
@@ -120,64 +89,64 @@ function home(navigateTo) {
       navigateTo('/board');
     }).catch((error) => {
       // eslint-disable-next-line no-alert
-      alert('Failed register, try again');
+      alert('Failed register, try again', error);
     });
   });
 
-  signUp.addEventListener('click', (e) => {
+  btnLogIn.addEventListener('click', (e) => {
     e.preventDefault();
-    navigateTo('/signup');
-  });
-
-  btnSignIn.addEventListener('click', (e) => {
-    e.preventDefault();
-
     const signInPromise = logIn(inputEmail.value, inputPassword.value);
     signInPromise.then((user) => {
-      console.log(user)
       notificationHome.style.display = 'block';
-      notificationHome.textContent = 'Welcome ' + user; 
-          setTimeout(() => {
-            notificationHome.style.display = 'none';
-            navigateTo('/board');
-          }, 2000);
+      notificationHome.textContent = `Welcome ${user}`; 
+      setTimeout(() => {
+        notificationHome.style.display = 'none';
+        navigateTo('/board');
+      }, 2000);
     }).catch((error) => {
-      console.log(error);
-      if(error==="auth/wrong-password"){
-        messageErrorHome.textContent="Wrong password..."
-        messageErrorHome.style.visibility="visible";
-        inputPassword.setAttribute("style","background-color:#FF5A5F;");
-        setTimeout(()=>{
-          messageErrorHome.style.visibility="hidden";
-          inputPassword.removeAttribute("style");
-        },2000);
+      if (error === 'auth/wrong-password') {
+        messageErrorHome.textContent = 'Wrong password...';
+        messageErrorHome.style.visibility = 'visible';
+        inputPassword.setAttribute('style', 'background-color:#FF5A5F;');
+        setTimeout(() => {
+          messageErrorHome.style.visibility = 'hidden';
+          inputPassword.removeAttribute('style');
+        }, 2000);
+      } else if (error === 'auth/user-not-found') {
+        messageErrorHome.textContent = 'User not found...';
+        messageErrorHome.style.visibility = 'visible';
+        inputEmail.setAttribute('style', 'background-color:#FF5A5F;');
+        inputPassword.setAttribute('style', 'background-color:#FF5A5F;');
+        setTimeout(() => {
+          messageErrorHome.style.visibility = 'hidden';
+          inputEmail.removeAttribute('style');
+          inputPassword.removeAttribute('style');
+        }, 2000);
+      } else if (error === 'auth/invalid-email') {
+        messageErrorHome.textContent = 'Invalid email...';
+        messageErrorHome.style.visibility = 'visible';
+        inputEmail.setAttribute('style', 'background-color:#FF5A5F;');
+        setTimeout(() => {
+          messageErrorHome.style.visibility = 'hidden';
+          inputEmail.removeAttribute('style');
+          inputPassword.removeAttribute('style');
+        }, 2000);
       }
-      else if(error==="auth/user-not-found"){
-        messageErrorHome.textContent="User not found..."
-        messageErrorHome.style.visibility="visible";
-        inputEmail.setAttribute("style","background-color:#FF5A5F;");
-        inputPassword.setAttribute("style","background-color:#FF5A5F;");
-
-        setTimeout(()=>{
-          messageErrorHome.style.visibility="hidden";
-          inputEmail.removeAttribute("style");
-          inputPassword.removeAttribute("style");
-        },2000);
-      }
-      else if(error==="auth/invalid-email"){
-        messageErrorHome.textContent="Invalid email..."
-        messageErrorHome.style.visibility="visible";
-        inputEmail.setAttribute("style","background-color:#FF5A5F;");
-        setTimeout(()=>{
-          messageErrorHome.style.visibility="hidden";
-          inputEmail.removeAttribute("style");
-          inputPassword.removeAttribute("style");
-        },2000);
-      }
-     
-      //alert(error);
     });
   });
+
+  formHome.append(
+    labelEmailHome,
+    inputEmail,
+    labelPasswordHome,
+    inputPassword,
+    messageErrorHome,
+    forgotPassword,
+    btnLogIn,
+    btnGoogle,
+    textBeforeSignUp,
+    signUp,
+  );
 
   container.append(
     title,
@@ -186,7 +155,8 @@ function home(navigateTo) {
     formHome,
     notificationHome,
   );
-  section.append(textHome, container);
+
+  section.appendChild(container);
   return section;
 }
 
