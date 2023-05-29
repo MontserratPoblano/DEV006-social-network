@@ -34,7 +34,7 @@ export function confirmDeleteModal() {
 // dibuja la data en tiempo real
 export function onDrawData(data, doc, userUid) {
   // todos los elementos que componen el post
-  console.log(data);
+  // console.log(data);
   const postDiv = document.createElement('div');
   postDiv.className = 'post-div';
 
@@ -45,40 +45,34 @@ export function onDrawData(data, doc, userUid) {
   const paragraph = document.createElement('p');
   paragraph.textContent = data.description;
 
-  if(data.userUid===userUid){
-  const btnEditBoard = document.createElement('button');
-  btnEditBoard.textContent = '🖉';
-  btnEditBoard.className = 'btn-editBoard';
-  btnEditBoard.dataset.id = doc.id;
+  if (data.userUid === userUid) {
+    const btnEditBoard = document.createElement('button');
+    btnEditBoard.textContent = '🖉';
+    btnEditBoard.className = 'btn-editBoard';
+    btnEditBoard.dataset.id = doc.id;
 
-  const btnDelete = document.createElement('button');
-  btnDelete.textContent = '🗑';
-  btnDelete.dataset.id = doc.id;
-  btnDelete.classList.add('btn-deletepost');
-  const divBtnEditDelete = document.createElement('div');
-  divBtnEditDelete.classList.add('btn-editdelete')
-  divBtnEditDelete.append(btnEditBoard, btnDelete);
-  postDiv.append(divBtnEditDelete)
+    const btnDelete = document.createElement('button');
+    btnDelete.textContent = '🗑';
+    btnDelete.dataset.id = doc.id;
+    btnDelete.classList.add('btn-deletepost');
+    const divBtnEditDelete = document.createElement('div');
+    divBtnEditDelete.classList.add('btn-editdelete');
+    divBtnEditDelete.append(btnEditBoard, btnDelete);
+    postDiv.append(divBtnEditDelete);
   }
 
-  
-
-   
   const containerStar = document.createElement('div');
   containerStar.className = 'container-star';
-  const btnStar= document.createElement('i');
+  const btnStar = document.createElement('i');
   btnStar.className = 'fa-solid fa-star';
-  btnStar.id=doc.id
+  btnStar.id = doc.id;
   const counterStar = document.createElement('span');
   counterStar.className = 'counter-star';
-  counterStar.textContent=data.likes;
+  counterStar.textContent = data.likes.length;
   containerStar.append(btnStar, counterStar);
 
-  postDiv.append(nameUser, paragraph,containerStar);
+  postDiv.append(nameUser, paragraph, containerStar);
 
- 
-  
-  
   return postDiv;
 }
 
