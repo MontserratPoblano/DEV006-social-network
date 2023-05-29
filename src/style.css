@@ -713,6 +713,7 @@ margin-bottom: 1%;
   padding: 4%;
   
 }
+
 /*  -----------------------------INICIO DE MEDIA QUERY----------------------------- */
 
 /* HOME 550 */
@@ -797,6 +798,21 @@ margin-bottom: 1%;
 }
 }
 
+
+/*Cambios en ventana signup para mostrar errores*/
+
+.confirm-passwordmessage{
+  height: 20px;
+  font-size: 12px;
+  margin:3% auto;
+  text-align: left;
+  width: 80%;
+  padding-top: 1%;
+}
+
+
+
+
 /* HOME 768 */
 @media screen and (min-width: 768px) { 
 
@@ -808,3 +824,4 @@ margin-bottom: 1%;
   }
 
 }
+
