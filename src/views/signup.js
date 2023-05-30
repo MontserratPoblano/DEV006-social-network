@@ -1,4 +1,3 @@
-
 import { registerUser, addDisplayName } from '../lib/index.js';
 import { auth } from '../lib/firebase.js';
 
@@ -16,9 +15,9 @@ function signup(navigateTo) {
   const inputConfirmPasswordSignUp = document.createElement('input');
   const buttonSignUp = document.createElement('button');
   const notification = document.createElement('div');
-  const messageConfirmPassword=document.createElement('p');
+  const messageConfirmPassword = document.createElement('p');
 
-  buttonReturn.id='buttonReturn';
+  buttonReturn.id = 'buttonReturn';
   formSignUp.classList.add('container-formSignUp');
 
   userSignUp.classList.add('paragraph-signUp');
@@ -29,7 +28,7 @@ function signup(navigateTo) {
   inputPasswordSignUp.classList.add('input-userSignUp');
   confirmPassword.classList.add('paragraph-signUp');
   buttonSignUp.classList.add('btn-windowSignUp');
-  notification.classList.add('notification');
+  notification.id = 'notification';
   inputConfirmPasswordSignUp.classList.add('input-userSignUp');
   inputUserSignUp.classList.add('input-userSignUp');
   messageConfirmPassword.classList.add('confirm-passwordmessage');
@@ -40,7 +39,6 @@ function signup(navigateTo) {
   passwordSignUp.textContent = 'Password';
   confirmPassword.textContent = 'Confirm password';
   buttonSignUp.textContent = 'Sign Up';
-  
 
   inputUserSignUp.placeholder = 'Enter user';
   inputEmailSignUp.placeholder = 'Enter email';
@@ -62,42 +60,37 @@ function signup(navigateTo) {
     navigateTo('/');
   });
 
-  
-
   formSignUp.addEventListener('submit', (e) => {
     e.preventDefault();
-    if(inputPasswordSignUp.value!==inputConfirmPasswordSignUp.value){
-      messageConfirmPassword.textContent='Password do not match';
-      messageConfirmPassword.style.visibility='visible';
-      setTimeout(()=>{
-        messageConfirmPassword.style.visibility="hidden";
-        formSignUp.reset()
-        return
-      },10000);
-    }else{
-    const registerPromise = 
-    registerUser(auth, inputEmailSignUp.value, inputPasswordSignUp.value);
-    registerPromise.then(() => {
-      addDisplayName(inputUserSignUp.value).then(() => {
-        notification.textContent = 'Registration successful!';
-        notification.style.display = 'block';
-        setTimeout(() => {
-          notification.style.display = 'none';
-          navigateTo('/');
-        }, 2000);
-      }).catch((error) => {
-        console.log(error)
-        console.log('Error al agregar el nombre de usuario al perfil:');
-        notification.textContent = 'Registration failed. Please try again';
-        notification.style.display = 'block';
-        setTimeout(() => {
-          notification.style.display = 'none';
-        }, 3000);
+    if (inputPasswordSignUp.value !== inputConfirmPasswordSignUp.value) {
+      messageConfirmPassword.textContent = 'Password do not match';
+      messageConfirmPassword.style.visibility = 'visible';
+      setTimeout(() => {
+        messageConfirmPassword.style.visibility = 'hidden';
+        formSignUp.reset();
+      }, 10000);
+    } else {
+      const registerPromise = registerUser(auth, inputEmailSignUp.value, inputPasswordSignUp.value);
+      registerPromise.then(() => {
+        addDisplayName(inputUserSignUp.value).then(() => {
+          notification.textContent = 'Registration successful!';
+          notification.style.display = 'block';
+          setTimeout(() => {
+            notification.style.display = 'none';
+            navigateTo('/');
+          }, 2000);
+        }).catch((error) => {
+          console.log(error);
+          console.log('Error al agregar el nombre de usuario al perfil:');
+          notification.textContent = 'Registration failed. Please try again';
+          notification.style.display = 'block';
+          setTimeout(() => {
+            notification.style.display = 'none';
+          }, 3000);
+        });
       });
-    })
-  }
+    }
   });
-
 
   formSignUp.append(
     userSignUp,
