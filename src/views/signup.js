@@ -67,8 +67,7 @@ function signup(navigateTo) {
       messageConfirmPassword.style.visibility = 'visible';
       setTimeout(() => {
         messageConfirmPassword.style.visibility = 'hidden';
-        formSignUp.reset();
-      }, 10000);
+      }, 2000);
     } else {
       const registerPromise = registerUser(auth, inputEmailSignUp.value, inputPasswordSignUp.value);
       registerPromise.then(() => {
