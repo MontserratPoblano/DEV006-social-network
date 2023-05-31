@@ -78,9 +78,7 @@ function signup(navigateTo) {
             notification.style.display = 'none';
             navigateTo('/');
           }, 2000);
-        }).catch((error) => {
-          console.log(error);
-          console.log('Error al agregar el nombre de usuario al perfil:');
+        }).catch(() => {
           notification.textContent = 'Registration failed. Please try again';
           notification.style.display = 'block';
           setTimeout(() => {
