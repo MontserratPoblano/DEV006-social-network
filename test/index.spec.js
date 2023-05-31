@@ -19,6 +19,7 @@ describe('myFunction', () => {
 // ...con la propiedad displayName.
 jest.mock('../src/lib/index.js', () => ({
   registerWithGoogle: jest.fn().mockResolvedValue({ displayName: 'Mon' }),
+  logIn: jest.fn().mockResolvedValue({ user: { uid: 'user123' } }),
 }));
 
 // se ejecuta antes del describe para realizar una configuración previa.
@@ -35,5 +36,24 @@ describe('probando alert de bienvenida con registro por google', () => {
     await Promise.resolve();
     expect((registerWithGoogle)).toHaveBeenCalled();
     expect(window.alert).toHaveBeenCalledWith('Welcome Mon!');
+  });
+});
+
+describe('Probando el input name', () => {
+  it('el usuario ingresa su nombre en el input', async () => {
+    const logIn = document.getElementById('btnLogIn');
+    const inputEmail = document.getElementById('input-email');
+    inputEmail.value = 'nombre@example.com'; // Simular ingreso de nombre de usuario
+    logIn.click();
+    await Promise.resolve();
+    expect(inputEmail.value).not.toBe('');
+  });
+  it('el usuario ingresa su password en el input', async () => {
+    const inputPassword = document.getElementById('input-password');
+    const logIn = document.getElementById('btnLogIn');
+    inputPassword.value = 'password123'; // Simular ingreso de contraseña
+    logIn.click();
+    await Promise.resolve();
+    expect(inputPassword.value).not.toBe('');
   });
 });
