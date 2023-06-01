@@ -3,14 +3,17 @@
 ## Índice
 > 
 [1. Definición del producto](#definición-del-producto)
-> > 
-  [1.1 Introducción](#introduccion)
-  [1.2 Objetivos](#objetivos)
-  [1.3 Alcance](#alcance)
+> 
+[1.1 Introducción](#introduccion)
+> 
+[1.2 Objetivos](#objetivos)
+> 
+[1.3 Alcance](#alcance)
 > 
 [2. Diseño de la interfaz de usuario](#diseño-de-la-interfaz-de-usuario)
-> > 
- [2.1 Prototipo de baja calidad](#prototipo-de-baja-calidad)
+> 
+[2.1 Prototipo de baja calidad](#prototipo-de-baja-calidad)
+> 
 [2.2 Prototipo de alta calidad](#prototipo-de-alta-calidad)
 > 
 [3. Comportamiento de la interfaz](#comportamiento-de-la-interfaz)
