@@ -14,7 +14,6 @@ export default defineConfig(({ command }) => {
       // para fazer uma implantação github pages, defina a propriedade base
       // para o nome/url do seu repositório
       // https://vitejs.dev/guide/static-deploy.html#github-pages
-      base: 'https://lalailamas.github.io/DEV006-social-network',
       build: {
         minify: false,
         rollupOptions: {
