@@ -98,4 +98,4 @@ Recopilamos información de compañeras y familiares, percibiendo lo siguiente:
 
 
 ## Página desplegada
-Puedes ver una demostración en vivo de la página [aquí](enlace-de-la-demo).
+Puedes ver una demostración en vivo de la página [aquí](https://social-network-6d91d.web.app/).

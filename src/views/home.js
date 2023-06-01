@@ -50,8 +50,8 @@ function home(navigateTo) {
  
   container.className = 'container-app';
  
-  imageBuilding.src = ('./images/building.png');
-  btnGoogle.src = ('./images/btn_google_signin_dark_focus_web.png');
+  imageBuilding.src = ('../images/building.png');
+  btnGoogle.src = ('../images/btn_google_signin_dark_focus_web.png');
   
   signUp.href = '/signup';
   forgotPassword.href = '/forgotPassword';
