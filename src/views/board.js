@@ -56,6 +56,7 @@ function board(navigateTo) {
   boardMenu.href = '/board';
   profileMenu.href = '/profile';
   imageProfile.src = './images/vector-profile-photo.svg';
+  imageProfile.alt = 'Vector foto perfil';
   option1.value = 'recent';
   option2.value = 'oldest';
   option2.text = 'Oldest';

@@ -51,7 +51,9 @@ function home(navigateTo) {
   container.className = 'container-app';
  
   imageBuilding.src = ('../images/building.png');
+  imageBuilding.alt = 'Imagen del edificio';
   btnGoogle.src = ('../images/btn_google_signin_dark_focus_web.png');
+  btnGoogle.alt = 'Inicio sesión con Google';
   
   signUp.href = '/signup';
   forgotPassword.href = '/forgotPassword';
