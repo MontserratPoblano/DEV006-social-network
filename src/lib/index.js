@@ -1,3 +1,5 @@
+/* eslint-disable no-shadow */
+/* eslint-disable no-alert */
 /* eslint-disable no-console */
 import {
   createUserWithEmailAndPassword,
@@ -6,14 +8,12 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
-  getAuth,
   updateProfile,
 } from 'firebase/auth';
 
 import {
   collection,
   addDoc,
-  getDocs,
   deleteDoc,
   doc,
   onSnapshot,
@@ -52,7 +52,6 @@ export async function registerUser(auth, email, password) {
 
 // agregar display name al registro
 export async function addDisplayName(name) {
-  const auth = getAuth();
   const user = auth.currentUser;
   try {
     await updateProfile(user, { displayName: name });
@@ -76,7 +75,7 @@ export function logIn(email, password) {
     console.log(errorCode);
     console.log(errorMessage);
 
-    throw errorCode;
+    return errorCode;
   });
 }
 
@@ -87,25 +86,23 @@ export async function registerWithGoogle() {
     const credentials = await signInWithPopup(auth, provider);
     return credentials.user;
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.log(error);
+    return error;
   }
 }
 
 // cerrar sesión
-export async function logOut(auth) {
+export async function logOut() {
   try {
     const out = await signOut(auth);
     return out;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 }
 
 // agregar los post al muro
 export async function postBoard(description) {
   try {
-    const auth = getAuth();
     const user = auth.currentUser;
     console.log(user.email, 'email del usuario');
     const docRef = await addDoc(collection(db, 'postDescription'), {
@@ -117,16 +114,6 @@ export async function postBoard(description) {
     console.log(docRef);
   } catch (error) {
     // console.log(error);
-  }
-}
-
-// obtiene los datos de los post
-export async function getPosts() {
-  try {
-    const querySnapshot = await getDocs(collection(db, 'postDescription'));
-    return querySnapshot;
-  } catch (error) {
-    console.log(error);
   }
 }
 
@@ -150,7 +137,7 @@ export async function getPost(id) {
     const getDocPost = await getDoc(doc(db, 'postDescription', id));
     return getDocPost;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 }
 
@@ -167,4 +154,3 @@ export const updateAll = (id, newFields) => updateDoc(doc(db, 'postDescription',
 // }
 
 // Email verification sent!
-// ...
